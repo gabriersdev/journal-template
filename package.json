@@ -44,27 +44,17 @@
         "custom": {
             "navigation_layout": {
                 "type": "select",
-                "options": [
-                    "Logo on the left",
-                    "Logo in the middle",
-                    "Stacked"
-                ],
+                "options": ["Logo on the left", "Logo in the middle", "Stacked"],
                 "default": "Stacked"
             },
             "title_font": {
                 "type": "select",
-                "options": [
-                    "Modern sans-serif",
-                    "Elegant serif"
-                ],
+                "options": ["Modern sans-serif", "Elegant serif"],
                 "default": "Modern sans-serif"
             },
             "body_font": {
                 "type": "select",
-                "options": [
-                    "Modern sans-serif",
-                    "Elegant serif"
-                ],
+                "options": ["Modern sans-serif", "Elegant serif"],
                 "default": "Modern sans-serif"
             }
         }
@@ -72,8 +62,7 @@
     "scripts": {
         "dev": "gulp",
         "test": "gscan .",
-        "zip": "gulp zip",
-        "vinc": "New-Item -ItemType Junction -Path \"c:\\projects\\ghost-local\\content\\themes\\escudo\" -Target \"c:\\projects\\escudo\""
+        "zip": "gulp zip"
     },
     "packageManager": "pnpm@11.17.0",
     "devDependencies": {
