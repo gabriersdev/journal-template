@@ -26,5 +26,11 @@ COPY --from=builder /usr/src/theme /var/lib/ghost/content/themes/escudo
 # Variáveis de ambiente padrão para produção (você pode sobrescrever no Railway)
 ENV NODE_ENV=production
 
+# O Ghost em produção tenta usar MySQL (porta 3306) por padrão.
+# Para evitar o erro ECONNREFUSED e rodar no Railway diretamente, forçamos o uso do SQLite:
+ENV database__client=sqlite3
+ENV database__connection__filename=/var/lib/ghost/content/data/ghost.db
+ENV database__useNullAsDefault=true
+
 # O Railway automaticamente detecta a porta que o Ghost escuta (2368)
 EXPOSE 2368
