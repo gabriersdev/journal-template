@@ -1,18 +1,18 @@
 import React from 'react';
-import { notFound } from 'next/navigation';
-import { MDXRemote } from 'next-mdx-remote/rsc';
-import { getPostBySlug, getPosts } from '../../libs/mdx';
-import { Header } from '../../components/header';
-import { Footer } from '../../components/footer';
-import { NewsletterSection } from '../../components/newsletter';
+import {notFound} from 'next/navigation';
+import {MDXRemote} from 'next-mdx-remote/rsc';
+import {getPostBySlug, getPosts} from '@/libs/mdx';
+import {Header} from '@/components/header';
+import {Footer} from '@/components/footer';
+import {NewsletterSection} from '@/components/newsletter';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
 // Generates dynamic metadata
-export async function generateMetadata({ params }: PageProps) {
-  const { slug } = await params;
+export async function generateMetadata({params}: PageProps) {
+  const {slug} = await params;
   const post = getPostBySlug(slug);
   
   if (!post) {
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: PageProps) {
       description: 'The requested post could not be found.',
     };
   }
-
+  
   return {
     title: `${post.metadata.title} - The Journal`,
     description: post.metadata.description,
@@ -43,54 +43,55 @@ export function generateStaticParams() {
   }));
 }
 
-export default async function BlogPost({ params }: PageProps) {
-  const { slug } = await params;
+export default async function BlogPost({params}: PageProps) {
+  const {slug} = await params;
   const post = getPostBySlug(slug);
-
+  
   if (!post) {
     notFound();
   }
-
+  
   return (
     <div className="bg-white min-h-screen text-gray-900 font-sans">
-      <Header />
+      <Header/>
       
       <main className="container mx-auto px-4 max-w-4xl pt-16 pb-12">
         <article>
           {/* Post Header */}
           <header className="mb-12">
-            <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-4 flex items-center">
-              <span>{post.metadata.author}</span>
-              <span className="mx-2 text-blue-300">—</span>
-              <span>{post.metadata.date}</span>
+            <div className="text-[12px] uppercase tracking-wide mb-4 flex items-center flex-wrap gap-1">
+              <div><span className={"text-gray-500 font-medium"}>By</span> <span className={" text-gray-900 font-semibold"}>{post.metadata.author}</span></div>
+              <div><span className={"text-gray-500 font-medium"}>in</span> <span className={" text-[#2631FF] font-semibold"}>{post.metadata.topic}</span></div>
+              <span className="text-blue-300">-</span>
+              <span className={"text-gray-500"}>{post.metadata.date}</span>
             </div>
             
-            <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold leading-[1.1] mb-6 tracking-tight">
+            <h1 className="text-5xl md:text-7xl lg:text-[56px] font-semibold leading-[1.1] mb-6">
               {post.metadata.title}
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-700 leading-snug">
+            <p className="text-xl md:text-3xl text-gray-700 leading-snug">
               {post.metadata.description}
             </p>
           </header>
-
+          
           {/* Cover Image Placeholder */}
           <div className="w-full aspect-[2/1] bg-gray-100 rounded mb-16 flex items-center justify-center text-gray-300 overflow-hidden relative">
             {post.metadata.image ? (
-              <img src={post.metadata.image} alt={post.metadata.title} className="w-full h-full object-cover" />
+              <img src={post.metadata.image} alt={post.metadata.title} className="w-full h-full object-cover"/>
             ) : (
               <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor">
                 <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/>
               </svg>
             )}
           </div>
-
+          
           {/* Post Content rendered by next-mdx-remote */}
           <div className="prose prose-lg prose-blue max-w-3xl mx-auto">
-            <MDXRemote source={post.content} />
+            <MDXRemote source={post.content}/>
           </div>
           
-          <hr className="my-16 border-gray-100 max-w-3xl mx-auto" />
+          <hr className="my-16 border-gray-100 max-w-3xl mx-auto"/>
           
           {/* Internal Footer for post */}
           <div className="max-w-3xl mx-auto">
@@ -118,9 +119,9 @@ export default async function BlogPost({ params }: PageProps) {
           </div>
         </article>
       </main>
-
-      <NewsletterSection />
-      <Footer />
+      
+      <NewsletterSection/>
+      <Footer/>
     </div>
   );
 }

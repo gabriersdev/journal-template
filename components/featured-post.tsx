@@ -16,7 +16,7 @@ export function FeaturedPost({ slug, metadata }: FeaturedPostProps) {
       </div>
       
       <Link href={`/${slug}`} className="block group">
-        <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold leading-[1.1] mb-6 tracking-tight group-hover:text-blue-600 transition-colors">
+        <h1 className="text-4xl md:text-5xl lg:text-[56px] font-bold leading-[1.1] mb-6 group-hover:text-blue-600 transition-colors">
           {metadata.title}
         </h1>
       </Link>

@@ -11,27 +11,40 @@ interface SearchModalProps {
 export function SearchModal({ posts }: SearchModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
+  const dialogRef = React.useRef<HTMLDialogElement>(null);
 
-  // Handle escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setIsOpen(false);
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
+  // Derive unique topics from posts (max 10)
+  const uniqueTopics = React.useMemo(() => {
+    return Array.from(
+      new Set(posts.map((post) => post.metadata.topic).filter((topic): topic is string => !!topic))
+    ).slice(0, 10);
+  }, [posts]);
 
-  // Prevent scrolling when modal is open
   useEffect(() => {
-    if (isOpen) {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (isOpen && !dialog.open) {
+      dialog.showModal();
       document.body.style.overflow = 'hidden';
-    } else {
+    } else if (!isOpen && dialog.open) {
+      dialog.close();
       document.body.style.overflow = 'unset';
     }
+    
     return () => {
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
+
+  // Handle native escape key closing
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+    const handleClose = () => setIsOpen(false);
+    dialog.addEventListener('close', handleClose);
+    return () => dialog.removeEventListener('close', handleClose);
+  }, []);
 
   const filteredPosts = posts.filter((post) => {
     if (!query) return false;
@@ -55,9 +68,15 @@ export function SearchModal({ posts }: SearchModalProps) {
         </svg>
       </button>
 
-      {isOpen && (
-        // TODO - usar um component dialog no modal
-        <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 bg-gray-900/20 backdrop-blur-sm" onClick={() => setIsOpen(false)}>
+      {/* Native dialog wraps the modal content */}
+      <dialog
+        ref={dialogRef}
+        className={`backdrop:bg-gray-900/20 backdrop:backdrop-blur-sm bg-transparent fixed inset-0 z-50 m-0 w-full max-w-none h-full items-start justify-center pt-24 ${isOpen ? 'flex' : 'hidden'}`}
+        onClick={(e) => {
+          if (e.target === dialogRef.current) setIsOpen(false);
+        }}
+      >
+        {isOpen && (
           <div className="w-full max-w-2xl bg-white rounded-lg shadow-xl border border-gray-400 overflow-hidden m-4" onClick={(e) => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-100 flex items-center">
               <svg className="w-4 h-4 text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -94,14 +113,22 @@ export function SearchModal({ posts }: SearchModalProps) {
                 ) : query && filteredPosts.length === 0 ? (
                   <div>
                     <p className="text-sm text-gray-500 px-2 ps-2">No results found. Try navigate by topic: </p>
-                  {/*  TODO - iterar as tags (ou tópicos) dos posts do projeto e mostrar em badges (max 10 tags) */}
-                    <div className={"flex gap-1 flex-wrap items-center mt-2 ms-2"}>
-                      {/*TODO - ao clicar, direcionar para a pagina de pesquisa por tag /topic/[topic-name] que retorna as postagens listadas tal qual os items de "more issues" da home */}
-                      <div className={"bg-blue-300 text-sm px-3 py-1 rounded-2xl"}>Topic 1</div>
-                      <div className={"bg-blue-100 text-sm px-3 py-1 rounded-2xl"}>Topic 1</div>
-                      <div className={"bg-blue-500 text-sm px-3 py-1 rounded-2xl text-white"}>Topic 1</div>
-                      <div className={"bg-blue-200 text-sm px-3 py-1 rounded-2xl"}>Topic 1</div>
-                      <div className={"bg-blue-600 text-sm px-3 py-1 rounded-2xl text-white"}>Topic 1</div>
+                    <div className={"flex gap-2 flex-wrap items-center mt-3 ms-2"}>
+                      {uniqueTopics.map((topic, i) => {
+                        const bgColors = ['bg-blue-100', 'bg-blue-200', 'bg-blue-300', 'bg-blue-500', 'bg-blue-600'];
+                        const textColors = ['text-gray-900', 'text-gray-900', 'text-gray-900', 'text-white', 'text-white'];
+                        const colorIndex = i % bgColors.length;
+                        return (
+                          <Link 
+                            key={topic} 
+                            href={`/topic/${encodeURIComponent(topic.toLowerCase().replace(/\s+/g, '-'))}`}
+                            onClick={() => setIsOpen(false)}
+                            className={`${bgColors[colorIndex]} ${textColors[colorIndex]} text-sm px-3 py-1 rounded-full hover:opacity-80 transition-opacity`}
+                          >
+                            {topic}
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 ) : (
@@ -110,8 +137,8 @@ export function SearchModal({ posts }: SearchModalProps) {
               </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </dialog>
     </>
   );
 }

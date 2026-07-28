@@ -37,6 +37,7 @@ export function Header() {
           {[
             ['Home', '/'],
             ['About', '/about'],
+            ['Authors', '/authors'],
             ['Collection', '/collection'],
           ].map(([label, href]) => (
             <Link

@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 type NewsletterFormProps = {
   variant?: 'large' | 'compact';
 };
 
-export function NewsletterForm({ variant = 'large' }: NewsletterFormProps) {
+export function NewsletterForm({variant = 'large'}: NewsletterFormProps) {
   const [email, setEmail] = useState('');
-
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Centralized submission logic could go here
@@ -16,7 +16,7 @@ export function NewsletterForm({ variant = 'large' }: NewsletterFormProps) {
     alert(`Subscribed with ${email}`);
     setEmail('');
   };
-
+  
   if (variant === 'compact') {
     return (
       <form className="flex w-full bg-white rounded border border-gray-200 overflow-hidden" onSubmit={handleSubmit}>
@@ -43,9 +43,9 @@ export function NewsletterForm({ variant = 'large' }: NewsletterFormProps) {
       </form>
     );
   }
-
+  
   return (
-    <form className="flex w-full max-w-md mx-auto bg-white rounded-full p-1 shadow-lg overflow-hidden relative" onSubmit={handleSubmit}>
+    <form className="flex w-full max-w-md mx-auto bg-white rounded-md py-1 overflow-hidden relative" onSubmit={handleSubmit}>
       <div className="pl-5 flex items-center justify-center text-gray-400">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -57,12 +57,12 @@ export function NewsletterForm({ variant = 'large' }: NewsletterFormProps) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="jamie@example.com"
-        className="w-full px-4 py-3 text-gray-900 bg-transparent focus:outline-none focus:ring-0 font-medium"
+        className="w-full px-2 py-3 text-gray-900 bg-transparent focus:outline-none focus:ring-0"
         required
       />
       <button
         type="submit"
-        className="bg-white text-blue-600 hover:text-blue-700 text-xs font-bold uppercase tracking-widest px-6 py-2 rounded-full absolute right-1 top-1 bottom-1 transition-colors"
+        className="bg-white text-blue-600 hover:text-blue-700 text-xs font-bold uppercase px-4 py-2 rounded-full absolute right-1 top-1 bottom-1 transition-colors"
       >
         Subscribe
       </button>
@@ -74,13 +74,13 @@ export function NewsletterSection() {
   return (
     <section className="bg-blue-600 text-white py-24 text-center mt-20 w-full">
       <div className="container mx-auto px-4 max-w-2xl">
-        <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">
+        <h2 className="text-3xl md:text-4xl font-bold mb-4">
           Subscribe to The Journal
         </h2>
-        <p className="text-blue-100 text-lg mb-8 max-w-lg mx-auto">
+        <p className="text-white text-xl font-light mb-8 max-w-lg mx-auto">
           Don't miss out on the latest issues. Sign up now to get access to the library of members-only issues.
         </p>
-        <NewsletterForm variant="large" />
+        <NewsletterForm variant="large"/>
       </div>
     </section>
   );

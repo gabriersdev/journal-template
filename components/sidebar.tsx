@@ -38,7 +38,7 @@ export function Sidebar({ features = [], topics = [] }: SidebarProps) {
             {features.map((feature, i) => (
               <div key={i} className="group cursor-pointer">
                 <Link href={`/${feature.slug}`}>
-                  <h4 className="font-bold text-md leading-snug mb-1 group-hover:text-blue-600 transition-colors">
+                  <h4 className="font-bold font-inter text-md leading-snug mb-1 group-hover:text-blue-600 transition-colors">
                     {feature.title}
                   </h4>
                   <p className="text-sm text-gray-500 line-clamp-2 mb-2 leading-relaxed">
@@ -66,8 +66,8 @@ export function Sidebar({ features = [], topics = [] }: SidebarProps) {
                 <Link href={`/topic/${topic.name.toLowerCase().replace(' ', '-')}`} className="font-semibold text-sm group-hover:text-blue-600 transition-colors w-full">
                   {topic.name}
                 </Link>
-                <span className="text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full">
-                  {topic.count} {topic.count === 1 ? 'issue' : 'issues'}
+                <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full text-nowrap">
+                  {topic.count} {topic.count === 1 ? 'post' : 'posts'}
                 </span>
               </div>
             ))}

@@ -1,16 +1,16 @@
 import Link from 'next/link';
-import { PostMetadata } from '../libs/mdx';
+import {PostMetadata} from '@/libs/mdx';
 
 type PostCardProps = {
   slug: string;
   metadata: PostMetadata;
 };
 
-export function PostCard({ slug, metadata }: PostCardProps) {
+export function PostCard({slug, metadata}: PostCardProps) {
   return (
     <div className="py-10 border-b border-gray-100 last:border-0 group">
       <Link href={`/${slug}`} className="block">
-        <h2 className="text-2xl md:text-[28px] font-bold leading-tight mb-3 group-hover:text-blue-600 transition-colors tracking-tight">
+        <h2 className="text-2xl md:text-[28px] font-semibold mb-3 group-hover:text-blue-600 transition-colors">
           {metadata.title}
         </h2>
         <p className="text-base text-gray-600 leading-relaxed mb-4 max-w-2xl">
