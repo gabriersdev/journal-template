@@ -45,19 +45,20 @@ export function SearchModal({ posts }: SearchModalProps) {
 
   return (
     <>
-      <button 
-        onClick={() => setIsOpen(true)} 
+      <button
+        onClick={() => setIsOpen(true)}
         className="text-gray-900 flex items-center justify-center p-2 rounded-full hover:bg-gray-100 transition-colors"
         aria-label="Search posts"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-          <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+        <svg className="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
         </svg>
       </button>
 
       {isOpen && (
+        // TODO - usar um component dialog no modal
         <div className="fixed inset-0 z-50 flex items-start justify-center pt-24 bg-gray-900/20 backdrop-blur-sm" onClick={() => setIsOpen(false)}>
-          <div className="w-full max-w-2xl bg-white rounded-xl shadow-2xl overflow-hidden m-4" onClick={(e) => e.stopPropagation()}>
+          <div className="w-full max-w-2xl bg-white rounded-lg shadow-xl border border-gray-400 overflow-hidden m-4" onClick={(e) => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-100 flex items-center">
               <svg className="w-4 h-4 text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -65,7 +66,7 @@ export function SearchModal({ posts }: SearchModalProps) {
               <input
                 type="text"
                 className="w-full text-[15px] outline-none placeholder-gray-400 bg-transparent text-gray-900"
-                placeholder="trans"
+                placeholder="security"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 autoFocus
@@ -91,9 +92,20 @@ export function SearchModal({ posts }: SearchModalProps) {
                     ))}
                   </ul>
                 ) : query && filteredPosts.length === 0 ? (
-                  <p className="text-sm text-gray-500 px-2">No results found.</p>
+                  <div>
+                    <p className="text-sm text-gray-500 px-2 ps-2">No results found. Try navigate by topic: </p>
+                  {/*  TODO - iterar as tags (ou tópicos) dos posts do projeto e mostrar em badges (max 10 tags) */}
+                    <div className={"flex gap-1 flex-wrap items-center mt-2 ms-2"}>
+                      {/*TODO - ao clicar, direcionar para a pagina de pesquisa por tag /topic/[topic-name] que retorna as postagens listadas tal qual os items de "more issues" da home */}
+                      <div className={"bg-blue-300 text-sm px-3 py-1 rounded-2xl"}>Topic 1</div>
+                      <div className={"bg-blue-100 text-sm px-3 py-1 rounded-2xl"}>Topic 1</div>
+                      <div className={"bg-blue-500 text-sm px-3 py-1 rounded-2xl text-white"}>Topic 1</div>
+                      <div className={"bg-blue-200 text-sm px-3 py-1 rounded-2xl"}>Topic 1</div>
+                      <div className={"bg-blue-600 text-sm px-3 py-1 rounded-2xl text-white"}>Topic 1</div>
+                    </div>
+                  </div>
                 ) : (
-                  <p className="text-sm text-gray-400 px-2 italic">Type to start searching...</p>
+                  <p className="text-sm text-gray-400 ps-2">Type to start searching...</p>
                 )}
               </div>
             </div>
@@ -112,7 +124,7 @@ function highlightMatch(text: string, query: string) {
   
   return (
     <>
-      {parts.map((part, i) => 
+      {parts.map((part, i) =>
         regex.test(part) ? (
           <span key={i} className="bg-yellow-300">{part}</span>
         ) : (

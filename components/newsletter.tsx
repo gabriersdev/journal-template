@@ -26,16 +26,16 @@ export function NewsletterForm({ variant = 'large' }: NewsletterFormProps) {
             <polyline points="22,6 12,13 2,6"></polyline>
           </svg>
         </div>
-        <input 
-          type="email" 
+        <input
+          type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="jamie@example.com" 
-          className="w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 focus:outline-none focus:bg-white transition-colors"
+          placeholder="jamie@example.com"
+          className="w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 focus:outline-none transition-colors"
           required
         />
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className="bg-white text-blue-600 hover:text-blue-700 text-[10px] font-bold uppercase tracking-widest px-4 py-2 transition-colors border-l border-gray-200"
         >
           Subscribe
@@ -52,16 +52,16 @@ export function NewsletterForm({ variant = 'large' }: NewsletterFormProps) {
           <polyline points="22,6 12,13 2,6"></polyline>
         </svg>
       </div>
-      <input 
-        type="email" 
+      <input
+        type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="jamie@example.com" 
+        placeholder="jamie@example.com"
         className="w-full px-4 py-3 text-gray-900 bg-transparent focus:outline-none focus:ring-0 font-medium"
         required
       />
-      <button 
-        type="submit" 
+      <button
+        type="submit"
         className="bg-white text-blue-600 hover:text-blue-700 text-xs font-bold uppercase tracking-widest px-6 py-2 rounded-full absolute right-1 top-1 bottom-1 transition-colors"
       >
         Subscribe

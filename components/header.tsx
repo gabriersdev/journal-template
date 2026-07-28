@@ -23,9 +23,6 @@ export function Header() {
           
           {/* Right actions */}
           <div className="w-1/3 flex justify-end items-center space-x-4">
-            <Link href="/signin" className="text-sm font-medium text-black uppercase tracking-wide">
-              Sign In
-            </Link>
             <Link
               href="/subscribe"
               className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-widest px-6 py-2.5 rounded-full transition-colors"
@@ -40,8 +37,6 @@ export function Header() {
           {[
             ['Home', '/'],
             ['About', '/about'],
-            ['Style Guide', '/style-guide'],
-            ['Author', '/author'],
             ['Collection', '/collection'],
           ].map(([label, href]) => (
             <Link
