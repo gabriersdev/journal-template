@@ -19,3 +19,12 @@ Seguindo o design limpo:
 
 ## Estilização
 Utilizamos TailwindCSS. Tipografia controlada via `@tailwindcss/typography` (`prose`) para que o HTML gerado a partir do MDX obedeça à estrutura de design system.
+
+## Pesquisa e Filtros (Modal de Busca)
+- `search-modal.tsx`: Componente utilizando a tag nativa `<dialog>` HTML5.
+  - **Controle de Estado:** A abertura e fechamento são controlados nativamente via métodos de DOM (`showModal()` e `close()`) acessados por meio de um `useRef`. Um event listener nativo monitora o evento `close` da tag `<dialog>` para garantir sincronia bidirecional com o estado React (como fechamentos via tecla `Esc`).
+  - **Otimização:** A lista de tópicos únicos para sugestão é derivada e memoizada com `useMemo`, evitando recálculo de array em iterações de filtro.
+  - **Estilização e Acessibilidade:** A visibilidade é controlada garantindo perfeita acessibilidade e foco. A interface com efeito de desfoque é atingida de forma nativa e semântica através da pseudo-classe `backdrop:` (ex: `backdrop:backdrop-blur-sm`). A listagem permite busca em tempo real nos metadados (*title*, *description* e *topic*).
+
+## Roteamento de Tópicos
+- `app/topic/[topic-name]/page.tsx`: Página de arquivo que lista todos os posts de um tópico específico. Recebe o parâmetro dinâmico da URL de forma assíncrona (Next.js 15+), realiza um processo de "slugificação" para garantir a comparação resiliente entre o nome da URL e os tópicos declarados nos MDXs, e exibe as listagens num formato espelhado à seção principal.

@@ -21,3 +21,8 @@ O componente lateral (Sidebar) coleta a lista de tópicos dinamicamente:
 - O maior post de destaque (`FeaturedPost`) escolhe automaticamente o post mais recente marcado com `featured: true`. Se nenhum post tiver a flag `featured`, o post mais recente no geral será usado.
 - A sessão "MORE ISSUES" carrega os posts restantes (excluindo o principal).
 - A sessão "Features" da barra lateral (Sidebar) apresenta no máximo os 4 posts mais recentes (excluindo o principal).
+
+## Busca Dinâmica e Navegação por Tópicos
+- **Slugificação de Tópicos**: Para garantir a correspondência precisa entre a URL e o conteúdo, tanto o parâmetro da rota de tópicos quanto o tópico do post são normalizados durante a filtragem (letras minúsculas e espaços convertidos em hífens).
+- **Exibição do Tópico**: Na página de listagem (`/topic/[topic-name]`), o sistema tenta resgatar a grafia e capitalização originais a partir da propriedade `topic` do primeiro post encontrado. Como plano de contingência (*fallback*), os hífens são convertidos em espaços com a primeira letra maiúscula.
+- **Sugestões de Tópicos**: O modal de pesquisa exibe dinamicamente até 10 "badges" únicos de tópicos reais extraídos do repositório de posts caso a pesquisa atual do usuário não retorne correspondências, servindo como uma sugestão rápida de navegação. Ao clicar nessas sugestões, o modal se encerra automaticamente e o usuário é redirecionado para a respectiva página do tópico, evitando "becos sem saída" na navegação.
