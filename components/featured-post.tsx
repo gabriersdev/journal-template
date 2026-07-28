@@ -1,12 +1,12 @@
 import Link from 'next/link';
-import { PostMetadata } from '../libs/mdx';
+import {PostMetadata} from '../libs/mdx';
 
 type FeaturedPostProps = {
   slug: string;
   metadata: PostMetadata;
 };
 
-export function FeaturedPost({ slug, metadata }: FeaturedPostProps) {
+export function FeaturedPost({slug, metadata}: FeaturedPostProps) {
   return (
     <div className="mb-16">
       <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-3 flex items-center">

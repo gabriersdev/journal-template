@@ -1,13 +1,13 @@
 "use client";
 import Link from 'next/link';
-import { NewsletterForm } from './newsletter';
+import {NewsletterForm} from './newsletter';
 
 type SidebarProps = {
   features?: { title: string; date: string; readTime: string; slug: string; description: string }[];
   topics?: { name: string; count: number }[];
 };
 
-export function Sidebar({ features = [], topics = [] }: SidebarProps) {
+export function Sidebar({features = [], topics = []}: SidebarProps) {
   return (
     <aside className="w-full lg:w-80 flex-shrink-0 lg:pl-10 lg:border-l border-gray-100 mt-16 lg:mt-0">
       
@@ -27,9 +27,9 @@ export function Sidebar({ features = [], topics = [] }: SidebarProps) {
         <p className="text-sm text-gray-600 mb-4 leading-relaxed">
           Sign up now to get access to the library of members-only issues.
         </p>
-        <NewsletterForm variant="compact" />
+        <NewsletterForm variant="compact"/>
       </div>
-
+      
       {/* Features Section */}
       {features.length > 0 && (
         <div className="mb-12">
@@ -55,7 +55,7 @@ export function Sidebar({ features = [], topics = [] }: SidebarProps) {
           </div>
         </div>
       )}
-
+      
       {/* Topics Section */}
       {topics.length > 0 && (
         <div>
@@ -74,7 +74,7 @@ export function Sidebar({ features = [], topics = [] }: SidebarProps) {
           </div>
         </div>
       )}
-
+    
     </aside>
   );
 }

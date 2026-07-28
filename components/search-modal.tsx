@@ -1,29 +1,29 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
-import { PostData } from '../libs/mdx';
+import {PostData} from '../libs/mdx';
 
 interface SearchModalProps {
   posts: PostData[];
 }
 
-export function SearchModal({ posts }: SearchModalProps) {
+export function SearchModal({posts}: SearchModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
   const dialogRef = React.useRef<HTMLDialogElement>(null);
-
+  
   // Derive unique topics from posts (max 10)
   const uniqueTopics = React.useMemo(() => {
     return Array.from(
       new Set(posts.map((post) => post.metadata.topic).filter((topic): topic is string => !!topic))
     ).slice(0, 10);
   }, [posts]);
-
+  
   useEffect(() => {
     const dialog = dialogRef.current;
     if (!dialog) return;
-
+    
     if (isOpen && !dialog.open) {
       dialog.showModal();
       document.body.style.overflow = 'hidden';
@@ -36,7 +36,7 @@ export function SearchModal({ posts }: SearchModalProps) {
       document.body.style.overflow = 'unset';
     };
   }, [isOpen]);
-
+  
   // Handle native escape key closing
   useEffect(() => {
     const dialog = dialogRef.current;
@@ -45,7 +45,7 @@ export function SearchModal({ posts }: SearchModalProps) {
     dialog.addEventListener('close', handleClose);
     return () => dialog.removeEventListener('close', handleClose);
   }, []);
-
+  
   const filteredPosts = posts.filter((post) => {
     if (!query) return false;
     const lowerQuery = query.toLowerCase();
@@ -55,7 +55,7 @@ export function SearchModal({ posts }: SearchModalProps) {
       (post.metadata.topic && post.metadata.topic.toLowerCase().includes(lowerQuery))
     );
   });
-
+  
   return (
     <>
       <button
@@ -64,10 +64,10 @@ export function SearchModal({ posts }: SearchModalProps) {
         aria-label="Search posts"
       >
         <svg className="w-4 h-4 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
         </svg>
       </button>
-
+      
       {/* Native dialog wraps the modal content */}
       <dialog
         ref={dialogRef}
@@ -80,7 +80,7 @@ export function SearchModal({ posts }: SearchModalProps) {
           <div className="w-full max-w-2xl bg-white rounded-lg shadow-xl border border-gray-400 overflow-hidden m-4" onClick={(e) => e.stopPropagation()}>
             <div className="p-4 border-b border-gray-100 flex items-center">
               <svg className="w-4 h-4 text-gray-500 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
               </svg>
               <input
                 type="text"
@@ -101,7 +101,7 @@ export function SearchModal({ posts }: SearchModalProps) {
                       <li key={post.slug}>
                         <Link href={`/${post.slug}`} className="block px-2 py-2 hover:bg-gray-50 rounded-lg transition-colors group" onClick={() => setIsOpen(false)}>
                           <h4 className="font-bold text-gray-900 text-[15px] leading-tight group-hover:text-blue-600 transition-colors">
-                             {highlightMatch(post.metadata.title, query)}
+                            {highlightMatch(post.metadata.title, query)}
                           </h4>
                           <p className="text-[13px] text-gray-500 mt-1 line-clamp-2 leading-relaxed">
                             {post.metadata.description}
@@ -119,8 +119,8 @@ export function SearchModal({ posts }: SearchModalProps) {
                         const textColors = ['text-gray-900', 'text-gray-900', 'text-gray-900', 'text-white', 'text-white'];
                         const colorIndex = i % bgColors.length;
                         return (
-                          <Link 
-                            key={topic} 
+                          <Link
+                            key={topic}
                             href={`/topic/${encodeURIComponent(topic.toLowerCase().replace(/\s+/g, '-'))}`}
                             onClick={() => setIsOpen(false)}
                             className={`${bgColors[colorIndex]} ${textColors[colorIndex]} text-sm px-3 py-1 rounded-full hover:opacity-80 transition-opacity`}
