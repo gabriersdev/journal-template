@@ -8,13 +8,23 @@ import {PostCard} from '@/components/post-card';
 import {NewsletterSection} from '@/components/newsletter';
 import {Metadata} from 'next';
 
-// TODO - definir metadata pertinente à uma página de informações sobre o projeto do blog/jornal
 export const metadata: Metadata = {
-  title: 'The Journal - Thoughts, stories and ideas',
-  description: 'The latest issues, stories, and ideas from The Journal.',
+  title: 'About | The Journal',
+  description: 'Learn more about The Journal, our mission, and the stories we share.',
 };
 
 export default function About() {
+  const posts = getPosts();
+  const topics = getTopics();
+  
+  const features = posts.slice(0, 4).map(p => ({
+    title: p.metadata.title,
+    description: p.metadata.description,
+    date: p.metadata.date,
+    readTime: p.metadata.readTime,
+    slug: p.slug
+  }));
+
   return (
     <div className="bg-white min-h-screen text-gray-900 font-sans">
       <Header/>
@@ -25,10 +35,8 @@ export default function About() {
             About's Page
           </div>
           
-          {/*TODO - siderbar conter APENAS as informações de outras notícias e tópicos*/}
-          <Sidebar/>
+          <Sidebar hideAbout={true} features={features} topics={topics} />
         </div>
-      
       </main>
       
       <NewsletterSection/>
