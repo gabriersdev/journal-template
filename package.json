@@ -10,7 +10,9 @@
     "update": "npm update",
     "upgrade:deps": "npx npm-check-updates -i && npm install",
     "cypress": "npx cypress run",
-    "sync:version": "git pull && node scripts/sync-version.js && git add package.json && git commit -m \"build: update version\""
+    "sync:version": "git pull && node scripts/sync-version.js && git add package.json && git commit -m \"build: update version\"",
+    "x": "// TODO - adicionar scripts para geração de versões de código automaticamente (semantic-release) e configurar no Github. Adicionar documentação de versionamento.",
+    "y": "// TODO - adicionar scripts para bloquear commits fora de padrão (verificador de commits)."
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -19,6 +21,7 @@
     "chalk": "^6.0.0",
     "gray-matter": "^4.0.3",
     "lucide-react": "^1.27.0",
+    "moment": "^2.30.1",
     "next": "16.2.12",
     "next-mdx-remote": "^6.0.0",
     "react": "19.2.8",

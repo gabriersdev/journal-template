@@ -1,7 +1,7 @@
 /* Markdown Content Styling for MDX rendering */
 .markdown-content {
     color: #4b5563; /* text-gray-600 */
-    font-size: 1.125rem; /* text-lg */
+    font-size: 1rem; /* text-base (16px) */
     line-height: 1.75;
 }
 

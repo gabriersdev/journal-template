@@ -22,6 +22,7 @@ export function Header() {
           </div>
           
           {/* Right actions */}
+          {/*TODO - criar diretório /subscribe para inscrição à newsletter que use o componente Newsletter variante "large"*/}
           <div className="w-1/3 flex justify-end items-center space-x-4">
             <Link
               href="/subscribe"
@@ -38,6 +39,7 @@ export function Header() {
             ['Home', '/'],
             ['About', '/about'],
             ['Authors', '/authors'],
+            // TODO - criar diretório /collection com TODOS os posts (implementar forma de listagem sem limite de 5)
             ['Collection', '/collection'],
           ].map(([label, href]) => (
             <Link

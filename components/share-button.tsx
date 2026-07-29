@@ -1,16 +1,16 @@
 "use client";
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 
 type ShareButtonProps = {
   title: string;
 };
 
-export function ShareButton({ title }: ShareButtonProps) {
+export function ShareButton({title}: ShareButtonProps) {
   const [isCopied, setIsCopied] = useState(false);
-
+  
   const handleShare = async () => {
     if (typeof window === 'undefined') return;
-
+    
     if (navigator.share) {
       try {
         await navigator.share({
@@ -32,10 +32,10 @@ export function ShareButton({ title }: ShareButtonProps) {
       }
     }
   };
-
+  
   if (isCopied) {
     return (
-      <button 
+      <button
         className="px-4.5 py-2 border rounded-full font-semibold bg-green-300 border-green-300 text-green-700 pointer-events-none"
         disabled
       >
@@ -43,9 +43,9 @@ export function ShareButton({ title }: ShareButtonProps) {
       </button>
     );
   }
-
+  
   return (
-    <button 
+    <button
       onClick={handleShare}
       className="px-4.5 py-2 border border-gray-300 hover:border-gray-500 rounded-full font-semibold transition-colors"
     >

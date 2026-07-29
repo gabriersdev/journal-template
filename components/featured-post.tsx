@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import {PostMetadata} from '../libs/mdx';
+import {PostMetadata} from '@/libs/mdx';
 
 type FeaturedPostProps = {
   slug: string;

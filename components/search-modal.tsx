@@ -84,7 +84,7 @@ export function SearchModal({posts}: SearchModalProps) {
               </svg>
               <input
                 type="text"
-                className="w-full text-[15px] outline-none placeholder-gray-400 bg-transparent text-gray-900"
+                className="w-full outline-none placeholder-gray-400 bg-transparent text-gray-900"
                 placeholder="security"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -114,21 +114,23 @@ export function SearchModal({posts}: SearchModalProps) {
                   <div>
                     <p className="text-sm text-gray-500 px-2 ps-2">No results found. Try navigate by topic: </p>
                     <div className={"flex gap-2 flex-wrap items-center mt-3 ms-2"}>
-                      {uniqueTopics.map((topic, i) => {
-                        const bgColors = ['bg-blue-100', 'bg-blue-200', 'bg-blue-300', 'bg-blue-500', 'bg-blue-600'];
-                        const textColors = ['text-gray-900', 'text-gray-900', 'text-gray-900', 'text-white', 'text-white'];
-                        const colorIndex = i % bgColors.length;
-                        return (
-                          <Link
-                            key={topic}
-                            href={`/topic/${encodeURIComponent(topic.toLowerCase().replace(/\s+/g, '-'))}`}
-                            onClick={() => setIsOpen(false)}
-                            className={`${bgColors[colorIndex]} ${textColors[colorIndex]} text-sm px-3 py-1 rounded-full hover:opacity-80 transition-opacity`}
-                          >
-                            {topic}
-                          </Link>
-                        );
-                      })}
+                      {uniqueTopics
+                        .toSpliced(10)
+                        .map((topic, i) => {
+                          const bgColors = ['bg-blue-100', 'bg-blue-200', 'bg-blue-300', 'bg-blue-500', 'bg-blue-600'];
+                          const textColors = ['text-gray-900', 'text-gray-900', 'text-gray-900', 'text-white', 'text-white'];
+                          const colorIndex = i % bgColors.length;
+                          return (
+                            <Link
+                              key={topic}
+                              href={`/topic/${encodeURIComponent(topic.toLowerCase().replace(/\s+/g, '-'))}`}
+                              onClick={() => setIsOpen(false)}
+                              className={`${bgColors[colorIndex]} ${textColors[colorIndex]} text-sm px-3 py-1 rounded-full hover:opacity-80 transition-opacity`}
+                            >
+                              {topic}
+                            </Link>
+                          );
+                        })}
                     </div>
                   </div>
                 ) : (

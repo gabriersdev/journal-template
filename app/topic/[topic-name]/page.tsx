@@ -58,7 +58,7 @@ export default async function TopicPage({params}: Props) {
           
           {/* Main Content Area */}
           <div className="w-full lg:flex-1 lg:pr-16">
-            <div className="mb-8">
+            <div className="mb-10">
               <h1 className="text-4xl font-bold text-gray-900 mb-2">Topic: {formattedTopic}</h1>
               <p className="text-gray-500 text-sm">
                 {posts.length || "No"} {posts.length === 1 ? 'post' : 'posts'} found

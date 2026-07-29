@@ -1,12 +1,13 @@
 import React from 'react';
-import { getPosts, getTopics } from '@/libs/mdx';
-import { Header } from '@/components/header';
-import { Footer } from '@/components/footer';
-import { Sidebar } from '@/components/sidebar';
-import { NewsletterSection } from '@/components/newsletter';
-import { Metadata } from 'next';
-import { authors } from '@/libs/authors';
+import {getPosts, getTopics} from '@/libs/mdx';
+import {Header} from '@/components/header';
+import {Footer} from '@/components/footer';
+import {Sidebar} from '@/components/sidebar';
+import {NewsletterSection} from '@/components/newsletter';
+import {Metadata} from 'next';
+import {authors} from '@/resources/authors';
 import Link from 'next/link';
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: 'Authors | The Journal',
@@ -24,47 +25,51 @@ export default function Authors() {
     readTime: p.metadata.readTime,
     slug: p.slug
   }));
-
+  
   return (
     <div className="bg-white min-h-screen text-gray-900 font-sans">
-      <Header />
-
+      <Header/>
+      
       <main className="container mx-auto px-4 max-w-6xl pt-16">
         <div className="flex flex-col lg:flex-row">
           <div className="w-full lg:flex-1 lg:pr-16">
-            <h1 className="text-4xl font-bold font-inter mb-10">Our Authors</h1>
+            {/*TODO - criar componente de "titulo e descricao" para as páginas*/}
+            <div className={"mb-10"}>
+              <h1 className="text-4xl font-bold font-inter mb-2">Our Authors</h1>
+              <p className="text-gray-500 text-sm">
+                Who writes here?
+              </p>
+            </div>
+            
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
-              {authors.map((author) => (
-                <div key={author.slug} className="border border-gray-100 p-8 rounded-lg hover:shadow-md transition-shadow group">
-                  <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-16 h-16 bg-black rounded-full flex items-center justify-center text-white font-bold text-2xl overflow-hidden relative">
-                      {author.avatar ? (
-                        <img src={author.avatar} alt={author.name} className="object-cover w-full h-full" />
-                      ) : (
-                        <div className="w-8 h-8 rounded-full border-2 border-white"></div>
-                      )}
-                    </div>
-                    <div>
-                      <Link href={`/author/${author.slug}`}>
-                        <h2 className="text-2xl font-bold font-inter group-hover:text-blue-600 transition-colors">{author.name}</h2>
-                      </Link>
+              {[...authors].map((author, i) => (
+                <Link key={i} href={`/author/${author.slug}`}>
+                  <div className="rounded-lg group">
+                    <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-6 space-y-4 sm:space-y-0">
+                      <div className="w-24 h-24 flex-shrink-0 bg-black rounded-full flex items-center justify-center text-white font-bold text-2xl overflow-hidden shadow-sm relative">
+                        {author.avatar ? (
+                          <Image src={author.avatar} alt={author.name} width={300} height={300} className="object-cover w-full h-full"/>
+                        ) : (
+                          <div className="w-8 h-8 rounded-full border-2 border-white"></div>
+                        )}
+                      </div>
+                      <div className="flex-1 text-center sm:text-left">
+                        <h2 className="text-3xl font-semibold group-hover:text-blue-600 transition-colors font-inter-tight">{author.name}</h2>
+                        <p className="text-gray-600 mt-2 leading-relaxed line-clamp-3 text-sm">{author.bio}</p>
+                      </div>
                     </div>
                   </div>
-                  <p className="text-gray-600 leading-relaxed mb-4">{author.bio}</p>
-                  <Link href={`/author/${author.slug}`} className="text-sm font-bold text-blue-600 uppercase tracking-widest hover:text-blue-800 transition-colors">
-                    View posts →
-                  </Link>
-                </div>
+                </Link>
               ))}
             </div>
           </div>
-
-          <Sidebar hideAbout={true} features={features} topics={topics} />
+          
+          <Sidebar hideAbout={true} features={features} topics={topics}/>
         </div>
       </main>
-
-      <NewsletterSection />
-      <Footer />
+      
+      <NewsletterSection/>
+      <Footer/>
     </div>
   );
 }

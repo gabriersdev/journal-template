@@ -1,19 +1,20 @@
 import React from 'react';
-import {getPosts, getTopics} from '../libs/mdx';
-import {Header} from '../components/header';
-import {Footer} from '../components/footer';
-import {Sidebar} from '../components/sidebar';
-import {FeaturedPost} from '../components/featured-post';
-import {PostCard} from '../components/post-card';
-import {NewsletterSection} from '../components/newsletter';
+import {getPosts, getTopics} from '@/libs/mdx';
+import {Header} from '@/components/header';
+import {Footer} from '@/components/footer';
+import {Sidebar} from '@/components/sidebar';
+import {FeaturedPost} from '@/components/featured-post';
+import {PostCard} from '@/components/post-card';
+import {NewsletterSection} from '@/components/newsletter';
 import {Metadata} from 'next';
+import {appConfigs} from "@/resources/resources";
 
 export const metadata: Metadata = {
-  title: 'The Journal - Thoughts, stories and ideas',
-  description: 'The latest issues, stories, and ideas from The Journal.',
+  title: appConfigs.title,
+  description: appConfigs.description,
 };
 
-export default function BlogHome() {
+export default function Home() {
   const posts = getPosts();
   const topics = getTopics();
   
@@ -48,7 +49,9 @@ export default function BlogHome() {
                   MORE ISSUES
                 </div>
                 <div className="flex flex-col">
-                  {otherPosts.map((post) => (
+                  {otherPosts
+                    .toSpliced(15)
+                    .map((post) => (
                     <PostCard key={post.slug} slug={post.slug} metadata={post.metadata}/>
                   ))}
                 </div>

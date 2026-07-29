@@ -45,7 +45,7 @@ export function generateStaticParams() {
   }));
 }
 
-export default async function BlogPost({params}: PageProps) {
+export default async function Post({params}: PageProps) {
   const {slug} = await params;
   const posts = getPosts();
   const postIndex = posts.findIndex(p => p.slug === slug);
@@ -144,7 +144,7 @@ export default async function BlogPost({params}: PageProps) {
             )}
             
             <div className="flex-1 flex justify-center">
-              <ShareButton title={post.metadata.title} />
+              <ShareButton title={post.metadata.title}/>
             </div>
             
             {nextPost ? (

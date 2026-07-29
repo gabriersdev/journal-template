@@ -5,7 +5,7 @@ import {Footer} from '@/components/footer';
 import {Sidebar} from '@/components/sidebar';
 import {PostCard} from '@/components/post-card';
 import {NewsletterSection} from '@/components/newsletter';
-import {getAuthorBySlug} from '@/libs/authors';
+import {getAuthorBySlug} from '@/resources/authors';
 import {notFound} from 'next/navigation';
 
 export async function generateMetadata({params}: { params: Promise<{ slug: string }> }) {
@@ -48,8 +48,12 @@ export default async function AuthorPage({params}: { params: Promise<{ slug: str
           
           {/* Main Content Area */}
           <div className="w-full lg:flex-1 lg:pr-16">
-            <h1 className="text-3xl font-bold font-inter mb-4">Posts by {author.name}</h1>
-            <p className="text-gray-500 mb-10">{posts.length} {posts.length === 1 ? 'post' : 'posts'} published</p>
+            <div className="mb-10">
+              <h1 className="text-4xl font-bold font-inter mb-2">Posts by {author.name}</h1>
+              <p className="text-gray-500 text-sm">
+                {posts.length} {posts.length === 1 ? 'post' : 'posts'} published
+              </p>
+            </div>
             
             {posts.length > 0 ? (
               <div className="flex flex-col">

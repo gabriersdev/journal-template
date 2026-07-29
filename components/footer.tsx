@@ -9,6 +9,7 @@ export function Footer() {
           <div className="flex space-x-6 mb-4 md:mb-0 text-gray-500">
             <a href="#" className="hover:text-black transition-colors">Data & privacy</a>
             <a href="#" className="hover:text-black transition-colors">Contact</a>
+            {/*TODO - implementar geração automática de RSS (rss.xml)*/}
             <a href="#" className="hover:text-black transition-colors">RSS</a>
             <a href="#" className="hover:text-black transition-colors">Contribute</a>
           </div>

@@ -9,7 +9,7 @@ type SidebarProps = {
   hideAbout?: boolean;
 };
 
-function SidebarAbout({ author }: { author?: SidebarProps['author'] }) {
+function SidebarAbout({author}: { author?: SidebarProps['author'] }) {
   return (
     <section className="mb-12">
       <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">
@@ -18,7 +18,7 @@ function SidebarAbout({ author }: { author?: SidebarProps['author'] }) {
       <div className="flex items-center space-x-3 mb-4">
         <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white font-bold text-xl overflow-hidden relative">
           {author?.avatar ? (
-            <img src={author.avatar} alt={author.name} className="w-full h-full object-cover" />
+            <img src={author.avatar} alt={author.name} className="w-full h-full object-cover"/>
           ) : (
             <div className="w-8 h-8 rounded-full border-2 border-white"></div>
           )}
@@ -44,23 +44,25 @@ function SidebarFeatures({features}: { features: NonNullable<SidebarProps['featu
       <div className="mb-12">
         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">Features</h3>
         <div className="space-y-6">
-          {features.map((feature, i) => (
-            <div key={i} className="group cursor-pointer">
-              <Link href={`/${feature.slug}`}>
-                <h4 className="font-bold font-inter text-md leading-snug mb-1 group-hover:text-blue-600 transition-colors">
-                  {feature.title}
-                </h4>
-                <p className="text-sm text-gray-500 line-clamp-2 mb-2 leading-relaxed">
-                  {feature.description}
-                </p>
-                <div className="text-[10px] font-bold text-blue-600 uppercase tracking-wide flex items-center">
-                  <span>{feature.date}</span>
-                  <span className="mx-2 text-gray-300">•</span>
-                  <span className="text-gray-400">{feature.readTime}</span>
-                </div>
-              </Link>
-            </div>
-          ))}
+          {features
+            .toSpliced(3)
+            .map((feature, i) => (
+              <div key={i} className="group cursor-pointer">
+                <Link href={`/${feature.slug}`}>
+                  <h4 className="font-bold font-inter text-md leading-snug mb-1 group-hover:text-blue-600 transition-colors">
+                    {feature.title}
+                  </h4>
+                  <p className="text-sm text-gray-500 line-clamp-2 mb-2 leading-relaxed">
+                    {feature.description}
+                  </p>
+                  <div className="text-[10px] font-bold text-blue-600 uppercase tracking-wide flex items-center">
+                    <span>{feature.date}</span>
+                    <span className="mx-2 text-gray-300">•</span>
+                    <span className="text-gray-400">{feature.readTime}</span>
+                  </div>
+                </Link>
+              </div>
+            ))}
         </div>
       </div>
     </section>
@@ -75,19 +77,22 @@ function SidebarTopics({topics}: { topics: NonNullable<SidebarProps['topics']> }
       <div>
         <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">Topics</h3>
         <div className="space-y-3">
-          {topics.map((topic, i) => (
-            <div key={i} className="group cursor-pointer hover:bg-gray-50 p-2 rounded -mx-2 transition-colors">
-              <Link href={`/topic/${topic.name.toLowerCase().replace(' ', '-')}`} className="font-semibold text-sm group-hover:text-blue-600 transition-colors w-full">
-                <div className={"flex items-center justify-between"}>
-                  {topic.name}
-                  
-                  <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full text-nowrap">
+          {topics
+            .toSorted((a, b) => b.count - a.count)
+            .toSpliced(5)
+            .map((topic, i) => (
+              <div key={i} className="group cursor-pointer hover:bg-gray-50 p-2 rounded -mx-2 transition-colors">
+                <Link href={`/topic/${topic.name.toLowerCase().replace(' ', '-')}`} className="font-semibold text-sm group-hover:text-blue-600 transition-colors w-full">
+                  <div className={"flex items-center justify-between"}>
+                    {topic.name}
+                    
+                    <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full text-nowrap">
                   {topic.count} {topic.count === 1 ? 'post' : 'posts'}
                 </span>
-                </div>
-              </Link>
-            </div>
-          ))}
+                  </div>
+                </Link>
+              </div>
+            ))}
         </div>
       </div>
     </section>
