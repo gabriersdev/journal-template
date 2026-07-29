@@ -1,4 +1,4 @@
-# Arquitetura do Blog/Jornal
+# Arquitetura do Journal
 
 O projeto utiliza Next.js com App Router. Os conteúdos das matérias são escritos em formato MDX e processados em Server Components.
 
@@ -16,9 +16,10 @@ Seguindo o design limpo:
 - `featured-post.tsx`: Post grande da página inicial.
 - `post-card.tsx`: Lista de posts menores.
 - `newsletter.tsx`: Bloco de conversão de emails.
+- `share-button.tsx`: Botão de compartilhamento que utiliza Web Share API ou a área de transferência.
 
 ## Estilização
-Utilizamos TailwindCSS. Tipografia controlada via `@tailwindcss/typography` (`prose`) para que o HTML gerado a partir do MDX obedeça à estrutura de design system.
+Utilizamos TailwindCSS. A formatação visual dos conteúdos MDX não utiliza plugins externos como o `@tailwindcss/typography`. Em vez disso, a renderização do MDX é envelopada pela classe `markdown-content` em `app/[slug]/page.tsx`. Todas as definições de tipografia, espaçamento de parágrafos, cores de cabeçalhos, listas, imagens e blocos de código correspondentes a essa classe encontram-se estritamente definidas de forma manual no arquivo global `style/styles.css`, para manter um controle apurado do *design system*.
 
 ## Pesquisa e Filtros (Modal de Busca)
 - `search-modal.tsx`: Componente utilizando a tag nativa `<dialog>` HTML5.
@@ -28,3 +29,8 @@ Utilizamos TailwindCSS. Tipografia controlada via `@tailwindcss/typography` (`pr
 
 ## Roteamento de Tópicos
 - `app/topic/[topic-name]/page.tsx`: Página de arquivo que lista todos os posts de um tópico específico. Recebe o parâmetro dinâmico da URL de forma assíncrona (Next.js 15+), realiza um processo de "slugificação" para garantir a comparação resiliente entre o nome da URL e os tópicos declarados nos MDXs, e exibe as listagens num formato espelhado à seção principal.
+
+## Roteamento de Autores
+- `libs/authors.ts`: Configuração centralizada dos autores.
+- `app/authors/page.tsx`: Página que lista todos os autores cadastrados.
+- `app/author/[slug]/page.tsx`: Rota dinâmica (Next.js 15+) que lista os posts específicos de um autor. Reutiliza o componente `Sidebar`, porém injeta os dados do autor (foto, nome e bio) no lugar das informações gerais do "The Journal".
