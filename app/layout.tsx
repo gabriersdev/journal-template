@@ -2,7 +2,7 @@ import type {Metadata} from "next";
 import {Inter, Inter_Tight, Noto_Serif} from "next/font/google";
 import "./globals.css";
 import React from "react";
-import {appConfigs} from "@/resources/resources";
+import {appConfigs, siteUrl} from "@/resources/resources";
 
 const primaryFont = Inter({
   variable: "--font-inter",
@@ -20,6 +20,7 @@ const fontSerif = Noto_Serif({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: appConfigs.title,
   description: appConfigs.description,
 };

@@ -7,7 +7,7 @@ import {Header} from '@/components/header';
 import {Footer} from '@/components/footer';
 import {NewsletterSection} from '@/components/newsletter';
 import {ShareButton} from '@/components/share-button';
-import {appConfigs} from "@/resources/resources";
+import {appConfigs, siteUrl} from "@/resources/resources";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -25,15 +25,38 @@ export async function generateMetadata({params}: PageProps) {
     };
   }
   
+  const postUrl = `${siteUrl}/${slug}`;
+
   return {
     title: `${post.metadata.title} - ${appConfigs["app-name"]}`,
     description: post.metadata.description,
+    alternates: {
+      canonical: postUrl,
+    },
     openGraph: {
       title: post.metadata.title,
       description: post.metadata.description,
       type: 'article',
+      url: postUrl,
+      siteName: appConfigs["app-name"],
       publishedTime: post.metadata.date,
       authors: [post.metadata.author],
+      ...(post.metadata.image && {
+        images: [
+          {
+            url: post.metadata.image,
+            width: 1200,
+            height: 630,
+            alt: post.metadata.title,
+          },
+        ],
+      }),
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.metadata.title,
+      description: post.metadata.description,
+      ...(post.metadata.image && { images: [post.metadata.image] }),
     },
   };
 }
@@ -58,9 +81,38 @@ export default async function Post({params}: PageProps) {
   
   const prevPost = postIndex < posts.length - 1 ? posts[postIndex + 1] : null;
   const nextPost = postIndex > 0 ? posts[postIndex - 1] : null;
-  
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: post.metadata.title,
+    description: post.metadata.description,
+    image: post.metadata.image ? [`${siteUrl}${post.metadata.image}`] : [],
+    datePublished: post.metadata.date,
+    author: {
+      '@type': 'Person',
+      name: post.metadata.author,
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: appConfigs["app-name"],
+      logo: {
+        '@type': 'ImageObject',
+        url: `${siteUrl}/favicon.ico`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': `${siteUrl}/${slug}`,
+    },
+  };
+
   return (
     <div className="bg-white min-h-screen text-gray-900 font-sans">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Header/>
       
       <main className="container mx-auto px-4 max-w-4xl pt-16 pb-12">

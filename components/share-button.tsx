@@ -47,7 +47,7 @@ export function ShareButton({title}: ShareButtonProps) {
   return (
     <button
       onClick={handleShare}
-      className="px-4.5 py-2 border border-gray-300 hover:border-gray-500 rounded-full font-semibold transition-colors"
+      className="px-4.5 py-2 border border-gray-300 hover:border-gray-400 rounded-full font-semibold transition-colors"
     >
       Share
     </button>
