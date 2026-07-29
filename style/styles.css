@@ -7,11 +7,15 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .font-inter {
-    font-family: 'Inter', Arial, Helvetica, sans-serif;
+    font-family: "Inter", Arial, Helvetica, sans-serif;
 }
 
 .font-inter-tight {
-    font-family: "Inter Tight", 'Inter', Arial, Helvetica, sans-serif;
+    font-family: "Inter Tight", "Inter", Arial, Helvetica, sans-serif;
+}
+
+.font-serif {
+    font-family: "Noto Serif", "Inter", Arial, Helvetica, sans-serif;
 }
 
 button {

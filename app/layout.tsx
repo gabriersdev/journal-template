@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {Inter, Inter_Tight} from "next/font/google";
+import {Inter, Inter_Tight, Noto_Serif} from "next/font/google";
 import "./globals.css";
 import React from "react";
 
@@ -12,6 +12,11 @@ const secondaryFont = Inter_Tight({
   variable: "--font-inter-tight",
   subsets: ["latin"],
 });
+
+const fontSetif = Noto_Serif({
+  variable: "--font-serif",
+  subsets: ["latin"],
+})
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,7 +33,7 @@ export default function RootLayout(
   return (
     <html
       lang="pt-br"
-      className={`${primaryFont.variable} ${secondaryFont.variable} h-full antialiased`}
+      className={`${primaryFont.variable} ${secondaryFont.variable} ${fontSetif.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">{children}</body>
     </html>

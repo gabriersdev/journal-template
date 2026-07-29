@@ -6,6 +6,7 @@ import {getPostBySlug, getPosts} from '@/libs/mdx';
 import {Header} from '@/components/header';
 import {Footer} from '@/components/footer';
 import {NewsletterSection} from '@/components/newsletter';
+import {ShareButton} from '@/components/share-button';
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -46,11 +47,16 @@ export function generateStaticParams() {
 
 export default async function BlogPost({params}: PageProps) {
   const {slug} = await params;
-  const post = getPostBySlug(slug);
+  const posts = getPosts();
+  const postIndex = posts.findIndex(p => p.slug === slug);
+  const post = postIndex !== -1 ? posts[postIndex] : null;
   
   if (!post) {
     notFound();
   }
+  
+  const prevPost = postIndex < posts.length - 1 ? posts[postIndex + 1] : null;
+  const nextPost = postIndex > 0 ? posts[postIndex - 1] : null;
   
   return (
     <div className="bg-white min-h-screen text-gray-900 font-sans">
@@ -88,7 +94,7 @@ export default async function BlogPost({params}: PageProps) {
           </div>
           
           {/* Post Content rendered by next-mdx-remote */}
-          <div className="prose prose-lg prose-blue max-w-3xl mx-auto">
+          <div className="markdown-content max-w-3xl mx-auto">
             <MDXRemote source={post.content}/>
           </div>
           
@@ -122,38 +128,39 @@ export default async function BlogPost({params}: PageProps) {
           </div>
           
           <div className="flex flex-wrap justify-between items-center mt-10 pt-8 border-t border-gray-300">
-            {/*TODO - post anterior, se houver*/}
-            <Link href={"#"} className={"flex flex-col gap-2"}>
-              <h3 className={"text-xl font-bold uppercase font-inter flex items-center gap-1"}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-left-icon lucide-arrow-left">
-                  <path d="m12 19-7-7 7-7"/>
-                  <path d="M19 12H5"/>
-                </svg>
-                <span>Previous</span>
-              </h3>
-              <span>
-                Título do Post
-              </span>
-            </Link>
+            {prevPost ? (
+              <Link href={`/${prevPost.slug}`} className="flex flex-col gap-2 flex-1">
+                <h3 className="text-xl font-bold uppercase font-inter flex items-center gap-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-left-icon lucide-arrow-left">
+                    <path d="m12 19-7-7 7-7"/>
+                    <path d="M19 12H5"/>
+                  </svg>
+                  <span>Previous</span>
+                </h3>
+                <span className={"line-clamp-1"}>{prevPost.metadata.title}</span>
+              </Link>
+            ) : (
+              <div className="flex-1"></div>
+            )}
             
-            {/*TODO - implementar forma de compartilhamento usando a api de compartilhamento JS, quando ela estiver disponível. Se ela não estiver disponível, copiar link da página e alterar conteúdo do botão para "Copiado!" (bg-green-300 border-green-300 hover:border-green-500 text-green-700 pointer-events:none) temporariamente e travar botão para click - separar isso tudo em componente separado e importar aqui */}
-            <button className={"px-4.5 py-2 border border-gray-300 hover:border-gray-500 rounded-full font-semibold"}>
-              Share
-            </button>
+            <div className="flex-1 flex justify-center">
+              <ShareButton title={post.metadata.title} />
+            </div>
             
-            {/*TODO - próximo post, se houver*/}
-            <Link href={"#"} className={"flex flex-col gap-2 items-right"}>
-              <h3 className={"text-xl font-bold uppercase font-inter flex items-center justify-end gap-1"}>
-                <span>NEXT</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right-icon lucide-arrow-right">
-                  <path d="M5 12h14"/>
-                  <path d="m12 5 7 7-7 7"/>
-                </svg>
-              </h3>
-              <span className={"text-right"}>
-                Título do Post
-              </span>
-            </Link>
+            {nextPost ? (
+              <Link href={`/${nextPost.slug}`} className="flex flex-col gap-2 items-end flex-1 text-right">
+                <h3 className="text-xl font-bold uppercase font-inter flex items-center justify-end gap-1">
+                  <span>NEXT</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right-icon lucide-arrow-right">
+                    <path d="M5 12h14"/>
+                    <path d="m12 5 7 7-7 7"/>
+                  </svg>
+                </h3>
+                <span className="text-right line-clamp-1">{nextPost.metadata.title}</span>
+              </Link>
+            ) : (
+              <div className="flex-1"></div>
+            )}
           </div>
         </article>
       </main>
