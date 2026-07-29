@@ -9,9 +9,9 @@ type FeaturedPostProps = {
 export function FeaturedPost({slug, metadata}: FeaturedPostProps) {
   return (
     <div className="mb-16">
-      <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest mb-3 flex items-center">
+      <div className="text-xs font-bold text-blue-600 uppercase mb-3 flex items-center flex-wrap gap-1">
         <span>LATEST</span>
-        <span className="mx-2 text-blue-300">—</span>
+        <span className="text-blue-300">-</span>
         <span>{metadata.date}</span>
       </div>
       
@@ -25,7 +25,7 @@ export function FeaturedPost({slug, metadata}: FeaturedPostProps) {
         {metadata.description}
       </p>
       
-      <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">
+      <div className="text-xs font-bold text-gray-400 uppercase tracking-wide">
         {metadata.readTime}
       </div>
     </div>

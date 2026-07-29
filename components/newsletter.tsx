@@ -36,7 +36,7 @@ export function NewsletterForm({variant = 'large'}: NewsletterFormProps) {
         />
         <button
           type="submit"
-          className="bg-white text-blue-600 hover:text-blue-700 text-[10px] font-bold uppercase tracking-widest px-4 py-2 transition-colors border-l border-gray-200"
+          className="bg-white text-blue-600 hover:text-blue-700 text-xs font-bold uppercase px-4 py-2 transition-colors border-l border-gray-200"
         >
           Subscribe
         </button>

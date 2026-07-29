@@ -16,7 +16,7 @@ export function PostCard({slug, metadata}: PostCardProps) {
         <p className="text-base text-gray-600 leading-relaxed mb-4 max-w-2xl">
           {metadata.description}
         </p>
-        <div className="text-[10px] font-bold text-blue-600 uppercase tracking-widest flex items-center">
+        <div className="text-xs font-bold text-blue-600 uppercase flex items-center">
           <span>{metadata.date}</span>
           <span className="mx-2 text-gray-300">•</span>
           <span className="text-gray-400">{metadata.readTime}</span>

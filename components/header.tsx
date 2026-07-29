@@ -25,7 +25,7 @@ export function Header() {
           <div className="w-1/3 flex justify-end items-center space-x-4">
             <Link
               href="/subscribe"
-              className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase tracking-widest px-6 py-2.5 rounded-full transition-colors"
+              className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase px-5 py-2.5 rounded-full transition-colors"
             >
               Subscribe
             </Link>
