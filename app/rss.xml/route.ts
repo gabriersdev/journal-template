@@ -1,10 +1,10 @@
-import { getPosts } from "@/libs/mdx";
-import { appConfigs, siteUrl } from "@/resources/resources";
+import {getPosts} from "@/libs/mdx";
+import {appConfigs, siteUrl} from "@/resources/resources";
 import moment from "moment";
 
 export async function GET() {
   const posts = getPosts();
-
+  
   const itemsXml = posts
     .map((post) => {
       const postUrl = `${siteUrl}/${post.slug}`;
@@ -22,7 +22,7 @@ export async function GET() {
       `;
     })
     .join("");
-
+  
   const rssXml = `<?xml version="1.0" encoding="UTF-8" ?>
     <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
       <channel>
@@ -34,7 +34,7 @@ export async function GET() {
         ${itemsXml}
       </channel>
     </rss>`;
-
+  
   return new Response(rssXml, {
     headers: {
       "Content-Type": "application/rss+xml",

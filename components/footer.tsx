@@ -10,8 +10,7 @@ export function Footer() {
             {appConfigs["app-name"]} &copy; {new Date().getFullYear()}
           </Link>
           <div className="flex space-x-6 mb-4 md:mb-0 text-gray-500">
-            {/*TODO - criar página de termos de serviço e privacidade (sem conteúdo) - apenas título e descrição com o componente*/}
-            <Link href="#" className="hover:text-blue-600 transition-colors">Data & privacy</Link>
+            <Link href="/privacy" className="hover:text-blue-600 transition-colors">Data & privacy</Link>
             <Link href="/about" className="hover:text-blue-600 transition-colors">About us</Link>
             <Link href="/rss.xml" className="hover:text-blue-600 transition-colors">RSS</Link>
           </div>

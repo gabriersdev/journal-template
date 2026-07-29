@@ -2,7 +2,7 @@ import React from 'react';
 import {getPosts, getTopics} from '@/libs/mdx';
 import {Header} from '@/components/header';
 import {Footer} from '@/components/footer';
-import {Sidebar} from '@/components/sidebar';
+import {AppSidebar} from '@/components/app-sidebar';
 import {FeaturedPost} from '@/components/featured-post';
 import {PostCard} from '@/components/post-card';
 import {NewsletterSection} from '@/components/newsletter';
@@ -20,16 +20,7 @@ export default function Home() {
   
   const featuredPost = posts.find(p => p.metadata.featured) || posts[0];
   const otherPosts = posts.filter(p => p.slug !== featuredPost?.slug);
-  
-  // Get top 4 other posts for features section
-  const features = otherPosts.slice(0, 4).map(p => ({
-    title: p.metadata.title,
-    description: p.metadata.description,
-    date: p.metadata.date,
-    readTime: p.metadata.readTime,
-    slug: p.slug
-  }));
-  
+
   return (
     <div className="bg-white min-h-screen text-gray-900 font-sans">
       <Header/>
@@ -60,7 +51,7 @@ export default function Home() {
           </div>
           
           {/* Right Sidebar */}
-          <Sidebar features={features} topics={topics}/>
+          <AppSidebar excludeSlug={featuredPost?.slug} />
         
         </div>
       </main>

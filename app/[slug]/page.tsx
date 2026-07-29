@@ -7,6 +7,7 @@ import {Header} from '@/components/header';
 import {Footer} from '@/components/footer';
 import {NewsletterSection} from '@/components/newsletter';
 import {ShareButton} from '@/components/share-button';
+import {SocialShare} from '@/components/social-share';
 import {appConfigs, siteUrl} from "@/resources/resources";
 
 type PageProps = {
@@ -26,7 +27,7 @@ export async function generateMetadata({params}: PageProps) {
   }
   
   const postUrl = `${siteUrl}/${slug}`;
-
+  
   return {
     title: `${post.metadata.title} - ${appConfigs["app-name"]}`,
     description: post.metadata.description,
@@ -56,7 +57,7 @@ export async function generateMetadata({params}: PageProps) {
       card: 'summary_large_image',
       title: post.metadata.title,
       description: post.metadata.description,
-      ...(post.metadata.image && { images: [post.metadata.image] }),
+      ...(post.metadata.image && {images: [post.metadata.image]}),
     },
   };
 }
@@ -81,7 +82,7 @@ export default async function Post({params}: PageProps) {
   
   const prevPost = postIndex < posts.length - 1 ? posts[postIndex + 1] : null;
   const nextPost = postIndex > 0 ? posts[postIndex - 1] : null;
-
+  
   const jsonLd = {
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -106,12 +107,12 @@ export default async function Post({params}: PageProps) {
       '@id': `${siteUrl}/${slug}`,
     },
   };
-
+  
   return (
     <div className="bg-white min-h-screen text-gray-900 font-sans">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        dangerouslySetInnerHTML={{__html: JSON.stringify(jsonLd)}}
       />
       <Header/>
       
@@ -154,7 +155,7 @@ export default async function Post({params}: PageProps) {
           <hr className="my-16 border-gray-100 max-w-3xl mx-auto"/>
           
           {/* Internal Footer for post */}
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto flex flex-col gap-8">
             <div>
               <h3 className="text-xl font-bold mb-4">Your guide to Ghost</h3>
               <ul className="text-blue-600 space-y-2 list-disc list-inside font-medium mb-8">
@@ -179,7 +180,10 @@ export default async function Post({params}: PageProps) {
               <p className="text-gray-900 font-bold">Have fun!</p>
             </div>
             
-            {/*  TODO - implementar meios de compartilhamento com botões - para WhatsApp, Facebook, Instagram, Bluesky, pela URL (mesmo tipo do botão "Share") e Twitter (azul), com icons das plataformas e cores correspondentes */}
+            <div>
+              <span className={"text-gray-500 font-medium tracking-wide uppercase text-[12px]"}>Share</span>
+              <SocialShare title={post.metadata.title}/>
+            </div>
           </div>
           
           <div className="flex flex-wrap justify-between items-center mt-10 pt-8 border-t border-gray-300">
