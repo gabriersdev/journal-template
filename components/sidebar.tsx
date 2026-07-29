@@ -1,6 +1,7 @@
 "use client";
 import Link from 'next/link';
 import {NewsletterForm} from './newsletter';
+import {appConfigs} from "@/resources/resources";
 
 type SidebarProps = {
   features?: { title: string; date: string; readTime: string; slug: string; description: string }[];
@@ -24,7 +25,7 @@ function SidebarAbout({author}: { author?: SidebarProps['author'] }) {
           )}
         </div>
         <div>
-          <h4 className="font-bold text-lg leading-tight">{author ? author.name : 'The Journal'}</h4>
+          <h4 className="font-bold text-lg leading-tight">{author ? author.name : appConfigs["app-name"]}</h4>
           <p className="text-sm text-gray-500">{author ? 'Author' : 'Thoughts, stories and ideas.'}</p>
         </div>
       </div>

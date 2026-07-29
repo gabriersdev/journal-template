@@ -7,6 +7,7 @@ import {Header} from '@/components/header';
 import {Footer} from '@/components/footer';
 import {NewsletterSection} from '@/components/newsletter';
 import {ShareButton} from '@/components/share-button';
+import {appConfigs} from "@/resources/resources";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -19,13 +20,13 @@ export async function generateMetadata({params}: PageProps) {
   
   if (!post) {
     return {
-      title: 'Post Not Found - The Journal',
+      title: `Post Not Found - ${appConfigs["app-name"]}`,
       description: 'The requested post could not be found.',
     };
   }
   
   return {
-    title: `${post.metadata.title} - The Journal`,
+    title: `${post.metadata.title} - ${appConfigs["app-name"]}`,
     description: post.metadata.description,
     openGraph: {
       title: post.metadata.title,
@@ -73,7 +74,7 @@ export default async function Post({params}: PageProps) {
               <span className={"text-gray-500"}>{post.metadata.date}</span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl lg:text-[56px] font-semibold leading-[1.1] mb-6">
+            <h1 className="text-5xl md:text-7xl font-semibold leading-[1.1] mb-6">
               {post.metadata.title}
             </h1>
             
@@ -125,6 +126,8 @@ export default async function Post({params}: PageProps) {
               </p>
               <p className="text-gray-900 font-bold">Have fun!</p>
             </div>
+            
+            {/*  TODO - implementar meios de compartilhamento com botões - para WhatsApp, Facebook, Instagram, Bluesky, pela URL (mesmo tipo do botão "Share") e Twitter (azul), com icons das plataformas e cores correspondentes */}
           </div>
           
           <div className="flex flex-wrap justify-between items-center mt-10 pt-8 border-t border-gray-300">

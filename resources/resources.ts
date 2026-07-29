@@ -1,8 +1,8 @@
 const siteUrl = "https://your-url.com";
 
-// TODO - documentar a existência deste arquivo e o diretório resources - para quê serve? Qual o objetivo da centralização de informações?
 const contacts = {
   "mail": "your-email@domain.com",
+  "repo": "#",
 }
 
 const appConfigs = {

@@ -8,9 +8,11 @@ import {Metadata} from 'next';
 import {authors} from '@/resources/authors';
 import Link from 'next/link';
 import Image from "next/image";
+import {PageHeading} from '@/components/page-heading';
+import {appConfigs} from "@/resources/resources";
 
 export const metadata: Metadata = {
-  title: 'Authors | The Journal',
+  title: `Authors | ${appConfigs["app-name"]}`,
   description: 'Meet the authors contributing thoughts, stories and ideas to The Journal.',
 };
 
@@ -33,18 +35,15 @@ export default function Authors() {
       <main className="container mx-auto px-4 max-w-6xl pt-16">
         <div className="flex flex-col lg:flex-row">
           <div className="w-full lg:flex-1 lg:pr-16">
-            {/*TODO - criar componente de "titulo e descricao" para as páginas*/}
-            <div className={"mb-10"}>
-              <h1 className="text-4xl font-bold font-inter mb-2">Our Authors</h1>
-              <p className="text-gray-500 text-sm">
-                Who writes here?
-              </p>
-            </div>
+            <PageHeading
+              title="Our Authors"
+              description="Who writes here?"
+            />
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
               {[...authors].map((author, i) => (
-                <Link key={i} href={`/author/${author.slug}`}>
-                  <div className="rounded-lg group">
+                <Link key={i} href={`/author/${author.slug}`} className={"group"}>
+                  <div className="rounded-lg cursor-pointer hover:bg-gray-100 bg-gray-50" style={{padding: "2rem"}}>
                     <div className="flex flex-col sm:flex-row items-center sm:items-start sm:space-x-6 space-y-4 sm:space-y-0">
                       <div className="w-24 h-24 flex-shrink-0 bg-black rounded-full flex items-center justify-center text-white font-bold text-2xl overflow-hidden shadow-sm relative">
                         {author.avatar ? (
@@ -54,7 +53,7 @@ export default function Authors() {
                         )}
                       </div>
                       <div className="flex-1 text-center sm:text-left">
-                        <h2 className="text-3xl font-semibold group-hover:text-blue-600 transition-colors font-inter-tight">{author.name}</h2>
+                        <h2 className="text-2xl md:text-3xl font-semibold group-hover:text-blue-600 font-inter-tight">{author.name}</h2>
                         <p className="text-gray-600 mt-2 leading-relaxed line-clamp-3 text-sm">{author.bio}</p>
                       </div>
                     </div>

@@ -34,3 +34,7 @@ Utilizamos TailwindCSS. A formatação visual dos conteúdos MDX não utiliza pl
 - `libs/authors.ts`: Configuração centralizada dos autores.
 - `app/authors/page.tsx`: Página que lista todos os autores cadastrados.
 - `app/author/[slug]/page.tsx`: Rota dinâmica (Next.js 15+) que lista os posts específicos de um autor. Reutiliza o componente `Sidebar`, porém injeta os dados do autor (foto, nome e bio) no lugar das informações gerais do "The Journal".
+
+## Centralização de Recursos (Single Source of Truth)
+- `resources/resources.ts`: Arquivo que atua como a única fonte da verdade para as configurações globais estáticas do sistema (nome do site, URLs, fuso horário, metadados de contato e configurações de formatação).
+- **Objetivo Arquitetural**: A existência desta pasta e arquivo evita o uso de *magic strings* ou valores hardcoded espalhados pelos componentes React. Assim, qualquer alteração de informações estruturais ou base reflete instantaneamente em toda a aplicação sem a necessidade de modificar múltiplos arquivos da interface.

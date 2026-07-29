@@ -7,6 +7,8 @@ import {PostCard} from '@/components/post-card';
 import {NewsletterSection} from '@/components/newsletter';
 import {getAuthorBySlug} from '@/resources/authors';
 import {notFound} from 'next/navigation';
+import {PageHeading} from '@/components/page-heading';
+import {appConfigs} from "@/resources/resources";
 
 export async function generateMetadata({params}: { params: Promise<{ slug: string }> }) {
   const resolvedParams = await params;
@@ -15,7 +17,7 @@ export async function generateMetadata({params}: { params: Promise<{ slug: strin
     return {title: 'Author Not Found'};
   }
   return {
-    title: `${author.name} | The Journal`,
+    title: `${author.name} | ${appConfigs["app-name"]}`,
     description: author.bio,
   };
 }
@@ -48,12 +50,10 @@ export default async function AuthorPage({params}: { params: Promise<{ slug: str
           
           {/* Main Content Area */}
           <div className="w-full lg:flex-1 lg:pr-16">
-            <div className="mb-10">
-              <h1 className="text-4xl font-bold font-inter mb-2">Posts by {author.name}</h1>
-              <p className="text-gray-500 text-sm">
-                {posts.length} {posts.length === 1 ? 'post' : 'posts'} published
-              </p>
-            </div>
+            <PageHeading
+              title={`Posts by ${author.name}`}
+              description={`${posts.length} ${posts.length === 1 ? 'post' : 'posts'} published`}
+            />
             
             {posts.length > 0 ? (
               <div className="flex flex-col">

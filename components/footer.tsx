@@ -1,20 +1,30 @@
+import {appConfigs, contacts} from "@/resources/resources";
+import Link from "next/link";
+
 export function Footer() {
   return (
     <footer className="border-t border-gray-100 py-12 bg-white">
       <div className="container mx-auto px-4 max-w-6xl">
         <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-400 font-medium">
-          <div className="mb-4 md:mb-0">
-            The Journal &copy; {new Date().getFullYear()}
-          </div>
+          <Link href={"/"} className="mb-4 md:mb-0">
+            {appConfigs["app-name"]} &copy; {new Date().getFullYear()}
+          </Link>
           <div className="flex space-x-6 mb-4 md:mb-0 text-gray-500">
-            <a href="#" className="hover:text-black transition-colors">Data & privacy</a>
-            <a href="#" className="hover:text-black transition-colors">Contact</a>
-            {/*TODO - implementar geração automática de RSS (rss.xml)*/}
-            <a href="#" className="hover:text-black transition-colors">RSS</a>
-            <a href="#" className="hover:text-black transition-colors">Contribute</a>
+            {/*TODO - criar página de termos de serviço e privacidade (sem conteúdo) - apenas título e descrição com o componente*/}
+            <Link href="#" className="hover:text-blue-600 transition-colors">Data & privacy</Link>
+            <Link href="/about" className="hover:text-blue-600 transition-colors">About us</Link>
+            {/*TODO - implementar geração automática de RSS e acesso a partir daqui (rss.xml)*/}
+            <Link href="#" className="hover:text-blue-600 transition-colors">RSS</Link>
           </div>
           <div>
-            Powered by Ghost (Next.js)
+            <Link
+              href={contacts.repo}
+              target={"_blank"}
+              className="hover:text-blue-600 transition-colors"
+              rel={"noopener noreferrer"}
+            >
+              Powered by Ghost - Next.js
+            </Link>
           </div>
         </div>
       </div>

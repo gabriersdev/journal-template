@@ -8,9 +8,10 @@ import {PostCard} from '@/components/post-card';
 import {NewsletterSection} from '@/components/newsletter';
 import {Metadata} from 'next';
 import {appConfigs} from "@/resources/resources";
+import {PageHeading} from '@/components/page-heading';
 
 export const metadata: Metadata = {
-  title: 'About | The Journal',
+  title: `About | ${appConfigs["app-name"]}`,
   description: 'Learn more about The Journal, our mission, and the stories we share.',
 };
 
@@ -33,12 +34,10 @@ export default function About() {
       <main className="container mx-auto px-4 max-w-6xl pt-16">
         <div className="flex flex-col lg:flex-row">
           <div className="w-full lg:flex-1 lg:pr-16">
-            <div className="mb-10">
-              <h1 className="text-4xl font-bold font-inter mb-2">About us</h1>
-              <p className="text-gray-500 text-sm">
-                {appConfigs["app-name"]}
-              </p>
-            </div>
+            <PageHeading
+              title="About us"
+              description={appConfigs["app-name"]}
+            />
             
             <div className="markdown-content">
               <p>

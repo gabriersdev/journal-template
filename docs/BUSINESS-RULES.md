@@ -41,3 +41,8 @@ Todos os artigos escritos nos arquivos MDX utilizam o conjunto de regras globais
 - Ao final de cada leitura de post (`/[slug]`), o sistema exibe dinamicamente links para o "Post Anterior" (mais antigo cronologicamente) e "Próximo Post" (mais novo). Essa conta é feita com base na posição do post atual dentro do array gerado por `getPosts()`, que já vem ordenado descrescentemente por data.
 - Se o usuário estiver no post mais antigo, o botão de "Post Anterior" desaparece (e vice-versa para o mais novo).
 - Cada post contém um botão de Compartilhamento. Este botão deve tentar invocar a Web Share API (`navigator.share()`). Em navegadores ou dispositivos não suportados, ele deve atuar como um botão de "Copiar Link", salvando a URL do post na área de transferência (`navigator.clipboard`) e alterando o status visual para "Copiado!" temporariamente por 2 segundos.
+
+## Parâmetros e Configurações Globais (Resources)
+- **Proibição de Hardcode**: Toda configuração estática de sistema (como nome do app, idioma, regras de formatação de datas, contatos e fuso horário) NÃO PODE ser inserida como valor literal (*hardcoded*) diretamente nos componentes React ou funções utilitárias.
+- **Uso Obrigatório**: Estes dados DEVEM obrigatoriamente ser importados e consultados a partir dos objetos globais exportados em `resources/resources.ts`.
+- **Novas Configurações**: Quaisquer novas configurações não-dinâmicas que impactem o projeto como um todo devem ser incluídas nesse mesmo diretório e arquivo para manter a padronização e facilitar futuras manutenções unificadas.

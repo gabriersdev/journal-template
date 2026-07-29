@@ -6,6 +6,8 @@ import {Sidebar} from '../../../components/sidebar';
 import {PostCard} from '../../../components/post-card';
 import {NewsletterSection} from '../../../components/newsletter';
 import {Metadata} from 'next';
+import {PageHeading} from '../../../components/page-heading';
+import {appConfigs} from "@/resources/resources";
 
 type Props = {
   params: Promise<{ 'topic-name': string }>;
@@ -18,7 +20,7 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   const formattedTopic = displayTopic.charAt(0).toUpperCase() + displayTopic.slice(1);
   
   return {
-    title: `${formattedTopic} | The Journal`,
+    title: `${formattedTopic} | ${appConfigs["app-name"]}`,
     description: `Posts related to ${formattedTopic}`,
   };
 }
@@ -58,12 +60,10 @@ export default async function TopicPage({params}: Props) {
           
           {/* Main Content Area */}
           <div className="w-full lg:flex-1 lg:pr-16">
-            <div className="mb-10">
-              <h1 className="text-4xl font-bold text-gray-900 mb-2">Topic: {formattedTopic}</h1>
-              <p className="text-gray-500 text-sm">
-                {posts.length || "No"} {posts.length === 1 ? 'post' : 'posts'} found
-              </p>
-            </div>
+            <PageHeading
+              title={`Topic: ${formattedTopic}`}
+              description={`${posts.length || "No"} ${posts.length === 1 ? 'post' : 'posts'} found`}
+            />
             
             {posts.length > 0 ? (
               <div className="flex flex-col mt-8">
