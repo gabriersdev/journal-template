@@ -4,7 +4,7 @@
 Todo arquivo `.mdx` em `app/posts` DEVE conter os seguintes metadados em seu cabeçalho (*frontmatter*):
 - `title`: (Obrigatório) Título da matéria.
 - `description`: (Obrigatório) Resumo da matéria, usado nos cards e na página inicial.
-- `date`: (Obrigatório) Data de publicação.
+- `date`: (Obrigatório) Data de publicação. DEVE seguir rigorosamente o formato `DD MMM YYYY` (ex: `28 JUL 2026`) para que o sistema consiga interpretá-la corretamente sem gerar erros de *fallback* na biblioteca de datas (`moment`).
 - `author`: (Opcional, Padrão = "The Journal") Autor da matéria. Deve corresponder a um autor cadastrado em `libs/authors.ts`.
 - `readTime`: (Opcional, Padrão = "1 MIN READ") Tempo de leitura estimado.
 - `image`: (Opcional) URL da imagem de capa. Se não fornecida, exibe-se um placeholder genérico.
@@ -57,4 +57,4 @@ Todos os artigos escritos nos arquivos MDX utilizam o conjunto de regras globais
 ## RSS Feed Automático
 - O arquivo `rss.xml` é mapeado de forma dinâmica. A plataforma disponibiliza o conteúdo mais recente na forma de um feed (RSS 2.0) sem exigir novos *builds* de produção exclusivos.
 - **Sem Intervenção Manual**: Nenhuma intervenção manual é necessária para a atualização deste arquivo XML. Todos os dados da estrutura XML (*title*, *description*, *author* e *date*) são injetados de forma automática em tempo real através do uso das propriedades declaradas em `resources.ts` e do *frontmatter* dos arquivos `.mdx`.
-- **Consistência de Data**: Para efeitos de padronização, a publicação RSS sempre usará a conversão universal UTC oriunda das informações literais de data presentes no cabeçalho das postagens.
+- **Consistência de Data**: Para efeitos de padronização, a publicação RSS sempre usará a conversão universal UTC oriunda das informações literais de data presentes no cabeçalho das postagens. O sistema de *parsing* (`moment`) é explicitamente configurado para ler as datas no formato exato `DD MMM YYYY` das matérias, garantindo que não haja avisos de depreciação (*deprecation warnings*) ou falhas na conversão da string original.
