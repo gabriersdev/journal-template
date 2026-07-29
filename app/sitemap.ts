@@ -2,12 +2,27 @@ import {MetadataRoute} from "next";
 
 import moment from "moment";
 import {appConfigs, siteUrl} from "@/resources/resources";
+import {getPosts} from "@/libs/mdx";
 
-// TODO - refinar geração de sitemap. Buscar tentar gerar de forma automática, importando as notícias que existem do projeto, junto da descrição e conteúdo resumido delas.
 moment.locale(appConfigs.locale);
 const lastModified = moment().format(appConfigs["datetime-format"]);
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = getPosts();
+
+  const postsUrls: MetadataRoute.Sitemap = posts.map((post) => {
+    const postDate = post.metadata.date 
+      ? moment(post.metadata.date).format(appConfigs["datetime-format"])
+      : lastModified;
+
+    return {
+      url: `${siteUrl}/${post.slug}`,
+      lastModified: postDate,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    };
+  });
+
   return [
     {
       url: siteUrl,
@@ -16,8 +31,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: siteUrl + "blog",
+      url: `${siteUrl}/blog`,
       lastModified: lastModified,
     },
+    ...postsUrls,
   ];
 }

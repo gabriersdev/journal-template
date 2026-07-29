@@ -38,3 +38,11 @@ Utilizamos TailwindCSS. A formatação visual dos conteúdos MDX não utiliza pl
 ## Centralização de Recursos (Single Source of Truth)
 - `resources/resources.ts`: Arquivo que atua como a única fonte da verdade para as configurações globais estáticas do sistema (nome do site, URLs, fuso horário, metadados de contato e configurações de formatação).
 - **Objetivo Arquitetural**: A existência desta pasta e arquivo evita o uso de *magic strings* ou valores hardcoded espalhados pelos componentes React. Assim, qualquer alteração de informações estruturais ou base reflete instantaneamente em toda a aplicação sem a necessidade de modificar múltiplos arquivos da interface.
+
+## Geração Automática de Feeds (RSS)
+- `app/rss.xml/route.ts`: Rota de API (Route Handler) nativa do Next.js responsável por interceptar requisições ao arquivo `rss.xml`.
+- **Dinamicidade**: Lê os conteúdos MDX através de `getPosts()` e os metadados globais em `resources.ts`, gerando o arquivo XML do RSS Feed na versão 2.0 dinamicamente, mantendo o feed sempre atualizado com as novas publicações e dados do autor sem a necessidade de compilação estática manual prévia.
+
+## Geração Automática de Sitemap (SEO)
+- `app/sitemap.ts`: Rota especial do ecossistema Next.js (`MetadataRoute.Sitemap`) que intercepta requisições para `sitemap.xml`.
+- **Funcionamento**: A função de renderização coleta programaticamente todas as postagens publicadas através do método `getPosts()` e combina suas URLs (junto a rotas estáticas como a homepage e `/blog`) retornando um objeto iterável estruturado. O Next.js então formata esse retorno nativamente para o padrão XML de SEO utilizado pelos indexadores globais.

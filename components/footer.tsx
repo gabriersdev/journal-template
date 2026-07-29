@@ -13,8 +13,7 @@ export function Footer() {
             {/*TODO - criar página de termos de serviço e privacidade (sem conteúdo) - apenas título e descrição com o componente*/}
             <Link href="#" className="hover:text-blue-600 transition-colors">Data & privacy</Link>
             <Link href="/about" className="hover:text-blue-600 transition-colors">About us</Link>
-            {/*TODO - implementar geração automática de RSS e acesso a partir daqui (rss.xml)*/}
-            <Link href="#" className="hover:text-blue-600 transition-colors">RSS</Link>
+            <Link href="/rss.xml" className="hover:text-blue-600 transition-colors">RSS</Link>
           </div>
           <div>
             <Link
