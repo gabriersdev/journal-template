@@ -12,7 +12,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const postsUrls: MetadataRoute.Sitemap = posts.map((post) => {
     const postDate = post.metadata.date 
-      ? moment(post.metadata.date).format(appConfigs["datetime-format"])
+      ? moment(post.metadata.date, 'DD MMM YYYY').format(appConfigs["datetime-format"])
       : lastModified;
 
     return {

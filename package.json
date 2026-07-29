@@ -10,8 +10,9 @@
     "update": "npm update",
     "upgrade:deps": "npx npm-check-updates -i && npm install",
     "cypress": "npx cypress run",
+    "ci:test": "start-server-and-test dev http://localhost:5173 test",
+    "test": "cypress run",
     "sync:version": "git pull && node scripts/sync-version.js && git add package.json && git commit -m \"build: update version\"",
-    "x": "// TODO - adicionar scripts para geração de versões de código automaticamente (semantic-release) e configurar no Github. Adicionar documentação de versionamento.",
     "y": "// TODO - adicionar scripts para bloquear commits fora de padrão (verificador de commits)."
   },
   "dependencies": {

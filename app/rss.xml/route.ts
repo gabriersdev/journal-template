@@ -8,7 +8,7 @@ export async function GET() {
   const itemsXml = posts
     .map((post) => {
       const postUrl = `${siteUrl}/${post.slug}`;
-      const pubDate = moment(post.metadata.date).toDate().toUTCString();
+      const pubDate = moment(post.metadata.date, 'DD MMM YYYY').toDate().toUTCString();
       
       return `
         <item>
