@@ -1,5 +1,14 @@
 # Changelog
 
+## [Atualização Recente] - Internacionalização (i18n) e Centralização de Textos
+
+### Adicionado
+- **Dicionário Centralizado**: Criação do arquivo `resources/dictionary.ts` para armazenar todas as pequenas strings (textos da interface) do projeto de forma centralizada e estruturada.
+- **Conteúdos Base em Markdown**: Criação dos arquivos `.md` independentes (`about.md`, `privacy.md` e `guide.md`) dentro da pasta `resources` para extrair e gerenciar grandes blocos de textos, separados da interface visual.
+
+### Modificado
+- **Componentes e Páginas Dinâmicos**: Refatoração de todos os componentes (Header, Footer, Sidebar, Newsletter, Modais de Busca) e páginas principais (Home, About, Privacy, Postagens) para consumirem os textos via propriedades do dicionário ou leitura direta dos arquivos `.md` utilizando a API nativa `fs` e `MDXRemote`, eliminando *hardcoded strings*. Isso prepara totalmente a fundação do projeto para a implementação de múltiplos idiomas (i18n).
+
 ## [Atualização Recente] - Sistema de Autores e Navegação de Posts
 
 ### Adicionado

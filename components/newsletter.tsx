@@ -1,6 +1,7 @@
 "use client";
 
 import React, {useState} from 'react';
+import {dictionary} from "@/resources/dictionary";
 
 type NewsletterFormProps = {
   variant?: 'large' | 'compact';
@@ -13,7 +14,7 @@ export function NewsletterForm({variant = 'large'}: NewsletterFormProps) {
     e.preventDefault();
     // Centralized submission logic could go here
     console.log('Subscribed:', email);
-    alert(`Subscribed with ${email}`);
+    alert(`${dictionary.newsletter.subscribedAlert} ${email}`);
     setEmail('');
   };
   
@@ -30,7 +31,7 @@ export function NewsletterForm({variant = 'large'}: NewsletterFormProps) {
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="jamie@example.com"
+          placeholder={dictionary.newsletter.placeholder}
           className="w-full px-3 py-2 text-sm text-gray-900 bg-gray-50 focus:outline-none transition-colors"
           required
         />
@@ -38,7 +39,7 @@ export function NewsletterForm({variant = 'large'}: NewsletterFormProps) {
           type="submit"
           className="bg-white text-blue-600 hover:text-blue-700 text-xs font-bold uppercase px-4 py-2 transition-colors border-l border-gray-200"
         >
-          Subscribe
+          {dictionary.newsletter.subscribeButton}
         </button>
       </form>
     );
@@ -56,7 +57,7 @@ export function NewsletterForm({variant = 'large'}: NewsletterFormProps) {
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
-        placeholder="jamie@example.com"
+        placeholder={dictionary.newsletter.placeholder}
         className="w-full px-2 py-3 text-gray-900 bg-transparent focus:outline-none focus:ring-0"
         required
       />
@@ -64,7 +65,7 @@ export function NewsletterForm({variant = 'large'}: NewsletterFormProps) {
         type="submit"
         className="bg-white text-blue-600 hover:text-blue-700 text-xs font-bold uppercase px-4 py-2 rounded-full absolute right-1 top-1 bottom-1 transition-colors"
       >
-        Subscribe
+        {dictionary.newsletter.subscribeButton}
       </button>
     </form>
   );
@@ -75,10 +76,10 @@ export function NewsletterSection() {
     <section className="bg-blue-600 text-white py-24 text-center mt-20 w-full">
       <div className="container mx-auto px-4 max-w-2xl">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
-          Subscribe to The Journal
+          {dictionary.newsletter.subscribeTitle}
         </h2>
         <p className="text-white text-xl font-light mb-8 max-w-lg mx-auto">
-          Don't miss out on the latest issues. Sign up now to get access to the library of members-only issues.
+          {dictionary.newsletter.subscribeDescription}
         </p>
         <NewsletterForm variant="large"/>
       </div>

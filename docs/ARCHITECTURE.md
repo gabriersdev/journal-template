@@ -37,7 +37,9 @@ Utilizamos TailwindCSS. A formatação visual dos conteúdos MDX não utiliza pl
 
 ## Centralização de Recursos (Single Source of Truth)
 - `resources/resources.ts`: Arquivo que atua como a única fonte da verdade para as configurações globais estáticas do sistema (nome do site, URLs, fuso horário, metadados de contato e configurações de formatação).
-- **Objetivo Arquitetural**: A existência desta pasta e arquivo evita o uso de *magic strings* ou valores hardcoded espalhados pelos componentes React. Assim, qualquer alteração de informações estruturais ou base reflete instantaneamente em toda a aplicação sem a necessidade de modificar múltiplos arquivos da interface.
+- `resources/dictionary.ts`: Arquivo centralizado que armazena todos os pequenos textos (strings) da interface de usuário (UI). Desacopla as *hardcoded strings* dos componentes React, garantindo que o sistema possua infraestrutura nativa e imediata para internacionalização e localização (i18n).
+- **Conteúdos Base em Markdown**: Textos extensos (como os da página *About*, *Privacy* e o guia no rodapé dos posts) foram isolados em arquivos `.md` puros (`about.md`, `privacy.md`, `guide.md`) dentro da pasta `resources`. Diferente dos posts regulares, esses arquivos não possuem metadados (Frontmatter) e são lidos sincronicamente no servidor via módulo nativo `fs` (ex: `fs.readFileSync`), sendo então injetados dinamicamente no componente `MDXRemote`.
+- **Objetivo Arquitetural**: A existência desta pasta e seus respectivos arquivos evita o uso de valores "chumbados" no código. Qualquer alteração de idioma, formatações base, metadados ou páginas estáticas reflete instantaneamente em toda a aplicação sem a necessidade de modificar múltiplos arquivos da interface visual.
 
 ## Geração Automática de Feeds (RSS)
 - `app/rss.xml/route.ts`: Rota de API (Route Handler) nativa do Next.js responsável por interceptar requisições ao arquivo `rss.xml`.

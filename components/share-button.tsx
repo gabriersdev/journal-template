@@ -1,5 +1,6 @@
 "use client";
 import React, {useState} from 'react';
+import {dictionary} from "@/resources/dictionary";
 
 type ShareButtonProps = {
   title: string;
@@ -28,7 +29,7 @@ export function ShareButton({title}: ShareButtonProps) {
         setIsCopied(true);
         setTimeout(() => setIsCopied(false), 2000);
       } catch (err) {
-        console.error('Failed to copy!', err);
+        console.error(dictionary.share.failedToCopy, err);
       }
     }
   };
@@ -39,7 +40,7 @@ export function ShareButton({title}: ShareButtonProps) {
         className="px-4.5 py-2 border rounded-full font-semibold bg-green-300 border-green-300 text-green-700 pointer-events-none"
         disabled
       >
-        Copiado!
+        {dictionary.share.copied}
       </button>
     );
   }
@@ -49,7 +50,7 @@ export function ShareButton({title}: ShareButtonProps) {
       onClick={handleShare}
       className="px-4.5 py-2 border border-gray-300 hover:border-gray-400 rounded-full font-semibold transition-colors"
     >
-      Share
+      {dictionary.share.shareButton}
     </button>
   );
 }
