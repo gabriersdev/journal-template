@@ -7,13 +7,13 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "prepare": "husky",
     "update": "npm update",
     "upgrade:deps": "npx npm-check-updates -i && npm install",
     "cypress": "npx cypress run",
     "ci:test": "start-server-and-test dev http://localhost:5173 test",
-    "test": "cypress run",
-    "sync:version": "git pull && node scripts/sync-version.js && git add package.json && git commit -m \"build: update version\"",
-    "y": "// TODO - adicionar scripts para bloquear commits fora de padrão (verificador de commits)."
+    "test": "pwd",
+    "sync:version": "git pull && node scripts/sync-version.js && git add package.json && git commit -m \"build: update version\""
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -45,7 +45,10 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.12",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@commitlint/cli": "^21.2.1",
+    "@commitlint/config-conventional": "^19.0.0",
+    "husky": "^9.0.0"
   },
   "overrides": {
     "brace-expansion": "^5.0.8",
