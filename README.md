@@ -1,3 +1,17 @@
+# Journal Template
+
+This project is a blog or journal template, based on the "Journal" theme for the Ghost platform.
+
+## About the Theme
+
+This project is an adaptation of the [Journal](https://journal.ghost.io/) theme for [Next.js](https://nextjs.org). The original theme was created for the [Ghost](https://ghost.org/) platform.
+
+- **Original Theme:** [Journal](https://journal.ghost.io/)
+- **Original Theme Author:** [Ghost](https://journal.ghost.io/author/ghost/)
+- **Reference/Inspiration for the Next.js version:** [ghost-theme-journal by marykuo](https://github.com/marykuo/ghost-theme-journal)
+
+---
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
