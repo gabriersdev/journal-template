@@ -3,6 +3,7 @@
 import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import {PostData} from '../libs/mdx';
+import {dictionary} from "@/resources/dictionary";
 
 interface SearchModalProps {
   posts: PostData[];
@@ -85,7 +86,7 @@ export function SearchModal({posts}: SearchModalProps) {
               <input
                 type="text"
                 className="w-full outline-none placeholder-gray-400 bg-transparent text-gray-900"
-                placeholder="security"
+                placeholder={dictionary.search.placeholder}
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 autoFocus
@@ -94,7 +95,7 @@ export function SearchModal({posts}: SearchModalProps) {
             
             <div className="min-h-[300px] max-h-[60vh] overflow-y-auto">
               <div className="p-6">
-                <h3 className="text-[13px] font-bold text-gray-900 mb-4 px-2">Posts</h3>
+                <h3 className="text-[13px] font-bold text-gray-900 mb-4 px-2">{dictionary.search.posts}</h3>
                 {query && filteredPosts.length > 0 ? (
                   <ul className="space-y-4">
                     {filteredPosts.map((post) => (
@@ -112,7 +113,7 @@ export function SearchModal({posts}: SearchModalProps) {
                   </ul>
                 ) : query && filteredPosts.length === 0 ? (
                   <div>
-                    <p className="text-sm text-gray-500 px-2 ps-2">No results found. Try navigate by topic: </p>
+                    <p className="text-sm text-gray-500 px-2 ps-2">{dictionary.search.noResults} </p>
                     <div className={"flex gap-2 flex-wrap items-center mt-3 ms-2"}>
                       {uniqueTopics
                         .toSpliced(10)
@@ -134,7 +135,7 @@ export function SearchModal({posts}: SearchModalProps) {
                     </div>
                   </div>
                 ) : (
-                  <p className="text-sm text-gray-400 ps-2">Type to start searching...</p>
+                  <p className="text-sm text-gray-400 ps-2">{dictionary.search.typeToStart}</p>
                 )}
               </div>
             </div>

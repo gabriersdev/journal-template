@@ -1,6 +1,7 @@
 "use client";
 import React, {useState, useEffect} from 'react';
 import Link from "next/link";
+import {dictionary} from "@/resources/dictionary";
 
 type SocialShareProps = {
   title: string;
@@ -17,13 +18,13 @@ export function SocialShare({title}: SocialShareProps) {
   const handleCopyUrl = async () => {
     if (typeof window === 'undefined') return;
     
-    const shareText = `Read the article I found: ${title} ${window.location.href}`;
+    const shareText = `${dictionary.share.readArticle} ${title} ${window.location.href}`;
     
     if (navigator.share) {
       try {
         await navigator.share({
           title: title,
-          text: `Read the article I found: ${title}`,
+          text: `${dictionary.share.readArticle} ${title}`,
           url: window.location.href,
         });
         return;
@@ -38,14 +39,14 @@ export function SocialShare({title}: SocialShareProps) {
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy!', err);
+      console.error(dictionary.share.failedToCopy, err);
     }
   };
   
   const encodedUrl = encodeURIComponent(url);
-  const shareText = `Read the article I found: ${title} ${url}`;
+  const shareText = `${dictionary.share.readArticle} ${title} ${url}`;
   const encodedShareText = encodeURIComponent(shareText);
-  const twitterText = encodeURIComponent(`Read the article I found: ${title}`);
+  const twitterText = encodeURIComponent(`${dictionary.share.readArticle} ${title}`);
   
   const socials: Array<{
     name: string;
@@ -80,7 +81,7 @@ export function SocialShare({title}: SocialShareProps) {
       href: `https://instagram.com/`,
       onClick: () => {
         if (typeof navigator !== 'undefined' && navigator.clipboard) {
-          navigator.clipboard.writeText(shareText).catch(err => console.error('Failed to copy text!', err));
+          navigator.clipboard.writeText(shareText).catch(err => console.error(dictionary.share.failedToCopy, err));
         }
       },
       color: 'bg-[#FC0B65] hover:bg-[#C0064B]',
@@ -112,8 +113,8 @@ export function SocialShare({title}: SocialShareProps) {
           rel="noopener noreferrer"
           onClick={social.onClick}
           className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${social.color}`}
-          title={`Share on ${social.name}`}
-          aria-label={`Share on ${social.name}`}
+          title={`${dictionary.share.shareOn} ${social.name}`}
+          aria-label={`${dictionary.share.shareOn} ${social.name}`}
         >
           {social.icon}
         </Link>
@@ -123,8 +124,8 @@ export function SocialShare({title}: SocialShareProps) {
         className={`w-10 h-10 rounded-full flex items-center justify-center transition-transform ${
           isCopied ? 'bg-green-500' : 'bg-gray-700 hover:bg-gray-800'
         }`}
-        title="Share link"
-        aria-label="Share link"
+        title={dictionary.share.shareLink}
+        aria-label={dictionary.share.shareLink}
       >
         {isCopied ? (
           <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-5 h-5 text-white">
