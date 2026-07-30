@@ -8,6 +8,7 @@ import {NewsletterSection} from '../../../components/newsletter';
 import {Metadata} from 'next';
 import {PageHeading} from '../../../components/page-heading';
 import {appConfigs} from "@/resources/resources";
+import {dictionary} from "@/resources/dictionary";
 
 type Props = {
   params: Promise<{ 'topic-name': string }>;
@@ -73,7 +74,7 @@ export default async function TopicPage({params}: Props) {
               </div>
             ) : (
               <div className="text-center py-20 bg-gray-50 rounded border border-gray-100">
-                <p className="text-gray-500 text-lg">No posts found for this topic.</p>
+                <p className="text-gray-500 text-lg">{dictionary.topic.noPosts}</p>
               </div>
             )}
           </div>

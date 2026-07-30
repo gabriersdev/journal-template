@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import {NewsletterForm} from './newsletter';
 import {appConfigs} from "@/resources/resources";
+import {dictionary} from "@/resources/dictionary";
 
 type SidebarProps = {
   features?: { title: string; date: string; readTime: string; slug: string; description: string }[];
@@ -14,7 +15,7 @@ function SidebarAbout({author}: { author?: SidebarProps['author'] }) {
   return (
     <section className="mb-12">
       <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">
-        {author ? 'About the Author' : 'About'}
+        {author ? dictionary.sidebar.aboutAuthor : dictionary.sidebar.about}
       </h3>
       <div className="flex items-center space-x-3 mb-4">
         <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white font-bold text-xl overflow-hidden relative">
@@ -26,11 +27,11 @@ function SidebarAbout({author}: { author?: SidebarProps['author'] }) {
         </div>
         <div>
           <h4 className="font-bold text-lg leading-tight">{author ? author.name : appConfigs["app-name"]}</h4>
-          <p className="text-sm text-gray-500">{author ? 'Author' : 'Thoughts, stories and ideas.'}</p>
+          <p className="text-sm text-gray-500">{author ? dictionary.sidebar.author : dictionary.sidebar.thoughts}</p>
         </div>
       </div>
       <p className="text-sm text-gray-600 mb-4 leading-relaxed">
-        {author ? author.bio : 'Sign up now to get access to the library of members-only issues.'}
+        {author ? author.bio : dictionary.sidebar.signUp}
       </p>
       {!author && <NewsletterForm variant="compact"/>}
     </section>
@@ -43,7 +44,7 @@ function SidebarFeatures({features}: { features: NonNullable<SidebarProps['featu
   return (
     <section>
       <div className="mb-12">
-        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">Features</h3>
+        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">{dictionary.sidebar.features}</h3>
         <div className="space-y-6">
           {features
             .toSpliced(3)
@@ -76,7 +77,7 @@ function SidebarTopics({topics}: { topics: NonNullable<SidebarProps['topics']> }
   return (
     <section>
       <div>
-        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">Topics</h3>
+        <h3 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6 border-b border-gray-100 pb-2">{dictionary.sidebar.topics}</h3>
         <div className="space-y-3">
           {topics
             .toSorted((a, b) => b.count - a.count)
@@ -88,7 +89,7 @@ function SidebarTopics({topics}: { topics: NonNullable<SidebarProps['topics']> }
                     {topic.name}
                     
                     <span className="text-sm font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-full text-nowrap">
-                  {topic.count} {topic.count === 1 ? 'post' : 'posts'}
+                  {topic.count} {topic.count === 1 ? dictionary.sidebar.post : dictionary.sidebar.posts}
                 </span>
                   </div>
                 </Link>

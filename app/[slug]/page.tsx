@@ -1,4 +1,6 @@
 import React from 'react';
+import fs from 'fs';
+import path from 'path';
 import Link from "next/link";
 import {notFound} from 'next/navigation';
 import {MDXRemote} from 'next-mdx-remote/rsc';
@@ -9,6 +11,7 @@ import {NewsletterSection} from '@/components/newsletter';
 import {ShareButton} from '@/components/share-button';
 import {SocialShare} from '@/components/social-share';
 import {appConfigs, siteUrl} from "@/resources/resources";
+import {dictionary} from "@/resources/dictionary";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
@@ -72,6 +75,8 @@ export function generateStaticParams() {
 
 export default async function Post({params}: PageProps) {
   const {slug} = await params;
+  const guidePath = path.join(process.cwd(), 'resources', 'guide.md');
+  const guideContent = fs.readFileSync(guidePath, 'utf8');
   const posts = getPosts();
   const postIndex = posts.findIndex(p => p.slug === slug);
   const post = postIndex !== -1 ? posts[postIndex] : null;
@@ -121,8 +126,8 @@ export default async function Post({params}: PageProps) {
           {/* Post Header */}
           <header className="mb-12">
             <div className="text-[12px] uppercase tracking-wide mb-4 flex items-center flex-wrap gap-1">
-              <div><span className={"text-gray-500 font-medium"}>By</span> <span className={" text-gray-900 font-semibold"}>{post.metadata.author}</span></div>
-              <div><span className={"text-gray-500 font-medium"}>in</span> <span className={" text-[#2631FF] font-semibold"}>{post.metadata.topic}</span></div>
+              <div><span className={"text-gray-500 font-medium"}>{dictionary.post.by}</span> <span className={" text-gray-900 font-semibold"}>{post.metadata.author}</span></div>
+              <div><span className={"text-gray-500 font-medium"}>{dictionary.post.in}</span> <span className={" text-[#2631FF] font-semibold"}>{post.metadata.topic}</span></div>
               <span className="text-blue-300">-</span>
               <span className={"text-gray-500"}>{post.metadata.date}</span>
             </div>
@@ -156,32 +161,12 @@ export default async function Post({params}: PageProps) {
           
           {/* Internal Footer for post */}
           <div className="max-w-3xl mx-auto flex flex-col gap-8">
-            <div>
-              <h3 className="text-xl font-bold mb-4">Your guide to Ghost</h3>
-              <ul className="text-blue-600 space-y-2 list-disc list-inside font-medium mb-8">
-                <li><a href="#" className="hover:underline">Customizing your brand and design settings</a></li>
-                <li><a href="#" className="hover:underline">Writing and managing content, an advanced guide</a></li>
-                <li><a href="#" className="hover:underline">Building your audience with subscriber signups</a></li>
-                <li><a href="#" className="hover:underline">Selling premium memberships with recurring revenue</a></li>
-                <li><a href="#" className="hover:underline">How to grow your business around an audience</a></li>
-                <li><a href="#" className="hover:underline">Setting up apps and custom integrations</a></li>
-              </ul>
-              <p className="text-gray-600 mb-12">
-                If you get through all those and you're hungry for more, you can find an extensive library of content for creators over on <a href="#" className="text-blue-600 hover:underline">the Ghost blog</a>.
-              </p>
-              
-              <h3 className="text-xl font-bold mb-4">Getting help</h3>
-              <p className="text-gray-600 mb-4">
-                If you need help, <a href="#" className="text-blue-600 hover:underline">Ghost Help</a> is a great place to start. You can always reach out to the support team by clicking on the Ghost(Pro) link in the main navigation menu.
-              </p>
-              <p className="text-gray-600 mb-12">
-                If you're a developer reading with max-attributes or self-managed install, check out our <a href="#" className="text-blue-600 hover:underline">developer community forum</a> to chat with other users.
-              </p>
-              <p className="text-gray-900 font-bold">Have fun!</p>
+            <div className="markdown-content">
+              <MDXRemote source={guideContent}/>
             </div>
             
             <div>
-              <span className={"text-gray-500 font-medium tracking-wide uppercase text-[12px]"}>Share</span>
+              <span className={"text-gray-500 font-medium tracking-wide uppercase text-[12px]"}>{dictionary.post.share}</span>
               <SocialShare title={post.metadata.title}/>
             </div>
           </div>
@@ -194,7 +179,7 @@ export default async function Post({params}: PageProps) {
                     <path d="m12 19-7-7 7-7"/>
                     <path d="M19 12H5"/>
                   </svg>
-                  <span>Previous</span>
+                  <span>{dictionary.post.previous}</span>
                 </h3>
                 <span className={"line-clamp-1"}>{prevPost.metadata.title}</span>
               </Link>
@@ -209,7 +194,7 @@ export default async function Post({params}: PageProps) {
             {nextPost ? (
               <Link href={`/${nextPost.slug}`} className="flex flex-col gap-2 items-end flex-1 text-right">
                 <h3 className="text-xl font-bold uppercase font-inter flex items-center justify-end gap-1">
-                  <span>NEXT</span>
+                  <span>{dictionary.post.next}</span>
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right-icon lucide-arrow-right">
                     <path d="M5 12h14"/>
                     <path d="m12 5 7 7-7 7"/>

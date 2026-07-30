@@ -8,6 +8,7 @@ import {PostCard} from '@/components/post-card';
 import {NewsletterSection} from '@/components/newsletter';
 import {Metadata} from 'next';
 import {appConfigs} from "@/resources/resources";
+import {dictionary} from "@/resources/dictionary";
 
 export const metadata: Metadata = {
   title: appConfigs.title,
@@ -37,7 +38,7 @@ export default function Home() {
             {otherPosts.length > 0 && (
               <div className="mt-20">
                 <div className="text-xs font-bold text-gray-400 uppercase tracking-wide mb-6 border-b border-gray-100 pb-2">
-                  MORE ISSUES
+                  {dictionary.home.moreIssues}
                 </div>
                 <div className="flex flex-col">
                   {otherPosts

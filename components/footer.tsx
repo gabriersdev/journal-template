@@ -1,4 +1,5 @@
 import {appConfigs, contacts} from "@/resources/resources";
+import {dictionary} from "@/resources/dictionary";
 import Link from "next/link";
 
 export function Footer() {
@@ -10,9 +11,9 @@ export function Footer() {
             {appConfigs["app-name"]} &copy; {new Date().getFullYear()}
           </Link>
           <div className="flex space-x-6 mb-4 md:mb-0 text-gray-500">
-            <Link href="/privacy" className="hover:text-blue-600 transition-colors">Data & privacy</Link>
-            <Link href="/about" className="hover:text-blue-600 transition-colors">About us</Link>
-            <Link href="/rss.xml" className="hover:text-blue-600 transition-colors">RSS</Link>
+            <Link href="/privacy" className="hover:text-blue-600 transition-colors">{dictionary.footer.dataAndPrivacy}</Link>
+            <Link href="/about" className="hover:text-blue-600 transition-colors">{dictionary.footer.aboutUs}</Link>
+            <Link href="/rss.xml" className="hover:text-blue-600 transition-colors">{dictionary.footer.rss}</Link>
           </div>
           <div>
             <Link
@@ -21,7 +22,7 @@ export function Footer() {
               className="hover:text-blue-600 transition-colors"
               rel={"noopener noreferrer"}
             >
-              Powered by Ghost - Next.js
+              {dictionary.footer.poweredBy}
             </Link>
           </div>
         </div>

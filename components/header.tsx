@@ -2,6 +2,7 @@ import Link from 'next/link';
 import {getPosts} from '@/libs/mdx';
 import {SearchModal} from './search-modal';
 import {appConfigs} from "@/resources/resources";
+import {dictionary} from "@/resources/dictionary";
 
 export function Header() {
   const posts = getPosts();
@@ -28,7 +29,7 @@ export function Header() {
               href="/subscribe"
               className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold uppercase px-5 py-2.5 rounded-full transition-colors"
             >
-              Subscribe
+              {dictionary.header.subscribe}
             </Link>
           </div>
         </div>
@@ -36,10 +37,10 @@ export function Header() {
         {/* Bottom Navigation */}
         <nav className="flex justify-center space-x-8 py-4 border-t border-gray-50 line-clamp-1">
           {[
-            ['Home', '/'],
-            ['About', '/about'],
-            ['Authors', '/authors'],
-            ['Collection', '/collection'],
+            [dictionary.header.home, '/'],
+            [dictionary.header.about, '/about'],
+            [dictionary.header.authors, '/authors'],
+            [dictionary.header.collection, '/collection'],
           ].map(([label, href], i, self) => (
             <Link
               key={i}

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import {PostMetadata} from '@/libs/mdx';
+import {dictionary} from "@/resources/dictionary";
 
 type FeaturedPostProps = {
   slug: string;
@@ -10,7 +11,7 @@ export function FeaturedPost({slug, metadata}: FeaturedPostProps) {
   return (
     <div className="mb-16">
       <div className="text-xs font-bold text-blue-600 uppercase mb-3 flex items-center flex-wrap gap-1">
-        <span>LATEST</span>
+        <span>{dictionary.post.latest}</span>
         <span className="text-blue-300">-</span>
         <span>{metadata.date}</span>
       </div>
