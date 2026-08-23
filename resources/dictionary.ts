@@ -52,11 +52,18 @@ export const dictionary = {
   },
   about: {
     title: "About us",
+    description: "Learn more about The Journal, our mission, and the stories we share.",
   },
   topic: {
+    title: "Topic: {{name}}",
+    description: "Posts related to {{name}}",
+    postsFoundSingle: "{{count}} post found",
+    postsFoundPlural: "{{count}} posts found",
+    noPostsFound: "No posts found",
     noPosts: "No posts found for this topic.",
   },
   privacy: {
+    description: "Terms of service and privacy policy.",
     termsOfService: "Terms of Service",
     privacyPolicy: "Privacy Policy",
   },
@@ -67,5 +74,23 @@ export const dictionary = {
     readArticle: "Read the article I found:",
     shareOn: "Share on",
     shareLink: "Share link",
+  },
+  collection: {
+    title: "Collection",
+    description: "All {{count}} posts published so far"
+  },
+  authors: {
+    title: "Our Authors",
+    description: "Who writes here?"
+  },
+  author: {
+    title: "Posts by {{name}}",
+    descriptionSingle: "{{count}} post published",
+    descriptionPlural: "{{count}} posts published",
+    noPosts: "No posts found for this author."
+  },
+  subscribe: {
+    title: "Subscribe",
+    description: "Subscribe to our newsletter."
   }
 };

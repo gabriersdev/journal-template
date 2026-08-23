@@ -9,12 +9,11 @@ import {Metadata} from 'next';
 import {appConfigs} from "@/resources/resources";
 import {dictionary} from "@/resources/dictionary";
 import {PageHeading} from '@/components/page-heading';
-import {Sidebar} from "@/components/sidebar";
 import {AppSidebar} from "@/components/app-sidebar";
 
 export const metadata: Metadata = {
   title: `Data + Privacy | ${appConfigs["app-name"]}`,
-  description: 'Terms of service and privacy policy.',
+  description: dictionary.privacy.description,
 };
 
 export default async function Privacy() {
@@ -31,11 +30,11 @@ export default async function Privacy() {
           <div className="w-full lg:flex-1 lg:pr-16">
             <PageHeading
               title="Data + privacy"
-              description="Terms of service and privacy policy for our platform."
+              description={dictionary.privacy.description}
             />
             
             <div className="markdown-content">
-              <MDXRemote source={content} />
+              <MDXRemote source={content}/>
             </div>
           </div>
           

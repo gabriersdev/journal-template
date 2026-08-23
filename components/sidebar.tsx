@@ -1,5 +1,7 @@
 "use client";
+
 import Link from 'next/link';
+import Image from "next/image";
 import {NewsletterForm} from './newsletter';
 import {appConfigs} from "@/resources/resources";
 import {dictionary} from "@/resources/dictionary";
@@ -20,7 +22,7 @@ function SidebarAbout({author}: { author?: SidebarProps['author'] }) {
       <div className="flex items-center space-x-3 mb-4">
         <div className="w-12 h-12 bg-black rounded-full flex items-center justify-center text-white font-bold text-xl overflow-hidden relative">
           {author?.avatar ? (
-            <img src={author.avatar} alt={author.name} className="w-full h-full object-cover"/>
+            <Image width={500} height={500} src={author.avatar} alt={author.name} className="w-full h-full object-cover"/>
           ) : (
             <div className="w-8 h-8 rounded-full border-2 border-white"></div>
           )}

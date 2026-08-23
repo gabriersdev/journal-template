@@ -1,5 +1,5 @@
 import React from 'react';
-import {getPosts, getTopics} from '@/libs/mdx';
+import {getPosts} from '@/libs/mdx';
 import {Header} from '@/components/header';
 import {Footer} from '@/components/footer';
 import {AppSidebar} from '@/components/app-sidebar';
@@ -17,11 +17,11 @@ export const metadata: Metadata = {
 
 export default function Home() {
   const posts = getPosts();
-  const topics = getTopics();
+  // const topics = getTopics();
   
   const featuredPost = posts.find(p => p.metadata.featured) || posts[0];
   const otherPosts = posts.filter(p => p.slug !== featuredPost?.slug);
-
+  
   return (
     <div className="bg-white min-h-screen text-gray-900 font-sans">
       <Header/>
@@ -44,15 +44,15 @@ export default function Home() {
                   {otherPosts
                     .toSpliced(15)
                     .map((post) => (
-                    <PostCard key={post.slug} slug={post.slug} metadata={post.metadata}/>
-                  ))}
+                      <PostCard key={post.slug} slug={post.slug} metadata={post.metadata}/>
+                    ))}
                 </div>
               </div>
             )}
           </div>
           
           {/* Right Sidebar */}
-          <AppSidebar excludeSlug={featuredPost?.slug} />
+          <AppSidebar excludeSlug={featuredPost?.slug}/>
         
         </div>
       </main>
