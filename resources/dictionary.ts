@@ -48,6 +48,7 @@ export const dictionary = {
     in: "in",
     share: "Share",
     previous: "Previous",
+    readingTime: "{{time}} min to read",
     next: "NEXT",
   },
   about: {
