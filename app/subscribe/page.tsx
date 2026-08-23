@@ -4,10 +4,11 @@ import {Footer} from '@/components/footer';
 import {NewsletterSection} from '@/components/newsletter';
 import {Metadata} from 'next';
 import {appConfigs} from "@/resources/resources";
+import {dictionary} from "@/resources/dictionary";
 
 export const metadata: Metadata = {
-  title: `Subscribe | ${appConfigs["app-name"]}`,
-  description: 'Subscribe to our newsletter.',
+  title: `${dictionary.subscribe.title} | ${appConfigs["app-name"]}`,
+  description: dictionary.subscribe.description,
 };
 
 export default function SubscribePage() {

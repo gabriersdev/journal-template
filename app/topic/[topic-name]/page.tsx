@@ -21,8 +21,8 @@ export async function generateMetadata({params}: Props): Promise<Metadata> {
   const formattedTopic = displayTopic.charAt(0).toUpperCase() + displayTopic.slice(1);
   
   return {
-    title: `${formattedTopic} | ${appConfigs["app-name"]}`,
-    description: `Posts related to ${formattedTopic}`,
+    title: `${dictionary.topic.title.replace('{{name}}', formattedTopic)} | ${appConfigs["app-name"]}`,
+    description: dictionary.topic.description.replace('{{name}}', formattedTopic),
   };
 }
 
@@ -62,8 +62,12 @@ export default async function TopicPage({params}: Props) {
           {/* Main Content Area */}
           <div className="w-full lg:flex-1 lg:pr-16">
             <PageHeading
-              title={`Topic: ${formattedTopic}`}
-              description={`${posts.length || "No"} ${posts.length === 1 ? 'post' : 'posts'} found`}
+              title={dictionary.topic.title.replace('{{name}}', formattedTopic)}
+              description={posts.length === 0 
+                ? dictionary.topic.noPostsFound 
+                : (posts.length === 1 
+                  ? dictionary.topic.postsFoundSingle.replace('{{count}}', posts.length.toString()) 
+                  : dictionary.topic.postsFoundPlural.replace('{{count}}', posts.length.toString()))}
             />
             
             {posts.length > 0 ? (

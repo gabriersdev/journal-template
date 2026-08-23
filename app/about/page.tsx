@@ -12,8 +12,8 @@ import {appConfigs} from "@/resources/resources";
 import {dictionary} from "@/resources/dictionary";
 
 export const metadata: Metadata = {
-  title: `About | ${appConfigs["app-name"]}`,
-  description: 'Learn more about The Journal, our mission, and the stories we share.',
+  title: `${dictionary.about.title} | ${appConfigs["app-name"]}`,
+  description: dictionary.about.description,
 };
 
 export default async function About() {
